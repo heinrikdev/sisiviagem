@@ -1,0 +1,32 @@
+<th:block th:fragment="listar_abastecimentos">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th>Veículo</th>
+                    <th>Tipo Combustivel</th>
+                    <th>Tipo Servico</th>
+                    <th class="text-right">Odômetro</th>
+                    <th class="text-right">Litros</th>
+                    <th class="text-right">Valor</th>
+                    <th class="text-right">#</th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="abastecimento, iteration : ${viagem.abastecimentos}">
+                        <td th:text="${abastecimento.veiculo.placa}" />
+                        <td th:text="${abastecimento.tipoCombustivel}" />
+                        <td th:text="${abastecimento.tipoServico}" />
+                        <td th:text="${{abastecimento.odometro}}" class="text-right" />
+                        <td th:text="${{abastecimento.litros}}" class="text-right" />
+                        <td th:text="${{abastecimento.valor}}" class="text-right" />
+                        <td class="text-right">
+                            <a class="btn btn-primary btn-xs" th:attr="data-id=${abastecimento.id}" id="editar_abastecimento_">Editar</a>
+                            <a class="btn btn-danger btn-xs" th:href="@{'/dashboard/transporte/viagem/remover_abastecimento/' + ${viagem.id} + '/' + ${abastecimento.id}}">Remover</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

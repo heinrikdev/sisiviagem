@@ -1,0 +1,70 @@
+<!--/* 
+    Ao selecionar a opção de veículo próprio ao adicionar o trecho, o proposto
+    deverá cadastrar as informações do veículo.
+*/-->
+<th:block th:fragment="modal_dados_veiculo_proprio">
+    <form id="modal_dados_veiculo_proprio_form" method="POST">
+        <div id="modal_dados_veiculo_proprio" data-backdrop="static" data-keyboard="false" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">
+                            Dados do Veículo
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Marca do veículo</label>
+                                    <input placeholder="Fiat" type="text" name="marca" th:value="${veiculoProprio.getMarca()}" required="required" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="formgroup">
+                                    <label>Modelo do Veículo</label>
+                                    <input placeholder="Uno Mille" type="text" name="modelo" th:value="${veiculoProprio.getModelo()}" required="required" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Cor do Veículo</label>
+                                    <input placeholder="Prata" type="text" name="cor" th:value="${veiculoProprio.getCor()}" required="required" class="form-control " />
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Ano do Veículo</label>
+                                    <input placeholder="2002" type="number" name="ano" th:value="${veiculoProprio.getAno()}" required="required" class="form-control " />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Placa do Veículo</label>
+                                    <input placeholder="XXX-0000" type="text" name="placa" th:value="${veiculoProprio.getPlaca()}" required="required" class="form-control " />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input type="hidden" th:value="${veiculoProprio.getId()}" name="id">
+                        <button type="button" class="btn btn-success" id="btn_modal_veiculo_proprio_">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</th:block>

@@ -1,0 +1,65 @@
+<th:block th:fragment="table_add_veiculo">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="bg-blue" style="padding: .5rem;margin-bottom: 10px">
+                <i class="fa fa-pencil fa-fw"></i>
+                Veículos
+            </div>
+
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th>Placa</th>
+                    <th>Carro</th>
+                    <th class="text-center"></th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="veiculo, iteration : ${veiculos}">
+                        <td th:text="${veiculo.placa}"></td>
+                        <td th:text="${veiculo.carro}"></td>
+                        <td class="text-right">
+                            <button sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}" type="submit" class="btn btn-secondary btn-flat" th:formaction="@{/dashboard/transporte/viagem/adicionar_veiculo/} + ${iteration.index}">
+                                <i class="fa fa-plus"></i>
+                                Adicionar
+                            </button>
+                            <a sec:authorize="hasAuthority('MOTORISTA')"  th:if="${currentRole.name() == 'MOTORISTA'}" role="button" class="btn btn-default btn-flat" th:href="@{'/dashboard/motorista/viagem/detalhes/trocarVeiculo/' + ${veiculo.id} + '/' + ${veiculo_rm_id} + '/' + ${viagem.id}}">
+                                <i class="fa fa-check"></i>
+                                Trocar
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+        <div class="col-lg-12">
+            <div class="bg-blue" style="padding: .5rem;margin-bottom: 10px">
+                <i class="fa fa-pencil fa-fw"></i>
+                Veículos Adicionados
+            </div>
+
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th>Placa</th>
+                    <th>Carro</th>
+                    <th class="text-center">#</th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="veiculo, iteration : ${veiculosAdicionados}">
+                        <td th:text="${veiculo.placa}"></td>
+                        <td th:text="${veiculo.carro}"></td>
+                        <td class="text-right">
+                            <button type="submit" class="btn btn-secondary btn-flat" th:formaction="@{/dashboard/transporte/viagem/remover_veiculo/} + ${iteration.index}">
+                                <i class="fa fa-plus"></i>
+                                Remover
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

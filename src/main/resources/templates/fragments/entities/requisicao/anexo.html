@@ -1,0 +1,57 @@
+<th:block th:fragment="anexo_inputs">
+    <div class="row">
+        <input type="hidden" th:name="@{'anexo_id'}" th:value="${anexo.id}"/>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="anexoNome">Nome:</label>
+                <input type="text" class="form-control" th:name="@{'anexo_nome'}" th:value="${anexo.nome}">
+                <p class="bg-danger text-danger error-message" th:if="${formAnexoValidation.fieldHasError('nome')}" th:text="${formAnexoValidation.getErrorMessage('nome')}"></p>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="rotulo">Rótulo:</label>
+                <select class="form-control" name="rotulo" th:field="${anexo.rotulo}" id="rotulo_anexo">
+                    <option value="" th:text="Selecione"/>
+                    <option value="Convocação" th:text="Convocação"/>
+                    <option value="Convite" th:text="Convite"/>
+                    <option value="Folder" th:text="Folder"/>
+                    <option value="Email" th:text="Email"/>
+                    <option value="Formulário" th:text="Formulário"/>
+                    <option value="Outro">Outro</option>
+                </select>
+                <p class="bg-danger text-danger error-message" th:if="${formAnexoValidation.fieldHasError('rotulo')}" th:text="${formAnexoValidation.getErrorMessage('rotulo')}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="nome">Arquivo:</label>
+                <input type="file" class="form-control-file" name="file" th:field="${anexo.file}">
+                <p class="text-red">No máximo 5MB.</p>
+                <p class="bg-danger text-danger error-message" th:if="${formAnexoValidation.fieldHasError('file')}" th:text="${formAnexoValidation.getErrorMessage('file')}"></p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 hide" id="rotulo_outro">
+            <div class="form-group">
+                <label for="rotulo_outro">Outro: </label>
+                <input type="hidden" class="form-control" id="input_rotulo_outro" name="rotulo_outro" value="">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="descricao">Descição:</label>
+                <textarea class="form-control" name="descricao" maxlength="1000" th:field="${anexo.descricao}"></textarea>
+                <p class="bg-danger text-danger error-message" th:if="${formAnexoValidation.fieldHasError('descricao')}" th:text="${formAnexoValidation.getErrorMessage('descricao')}"></p>
+            </div>
+        </div>
+    </div>
+</th:block>

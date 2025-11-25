@@ -1,0 +1,208 @@
+<th:block th:fragment="requisicao_modal_filtro">
+    <!-- Modal -->
+    <div id="modalRequisicaoFiltrar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Filtrar requisições</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="tipoFiltro">Filtrar por:</label>
+                                <select class="form-control" name="tipoFiltro" id="tipoFiltro">
+                                    <option value="">Selecione</option>
+                                    <option value="#requisicao_numero">N° da requisição</option>
+                                    <option value="#proposto">Nome do solicitante</option>
+                                    <option value="#todos">Submetida</option>
+                                    <option value="#data">Data</option>
+                                    <option value="#periodo">Período</option>
+                                    <option value="#ano">Ano</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 filtro_form hide" id="todos">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <a class="btn btn-block btn-flat btn-primary" href="/dashboard/auditor/requisicoes">Buscar</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row filtro_form hide" id="requisicao_numero">
+                        <div class="col-lg-12">
+                            <form th:action="@{/dashboard/auditor/requisicoes/filtrar/numero}" method="GET">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="value">Nº da Requisição: </label>
+                                            <input class="form-control" type="text" name="value" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row filtro_form hide" id="proposto">
+                        <div class="col-lg-12">
+                            <form th:action="@{/dashboard/auditor/requisicoes/filtrar/proposto}" method="GET">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="value">Nome: </label>
+                                            <input class="form-control" type="text" name="nome" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row filtro_form hide" id="data">
+                        <div class="col-lg-12">
+                            <form th:action="@{/dashboard/auditor/requisicoes/filtrar/data}" method="GET">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="data">Data:</label>
+                                            <input type="date" class="form-control" name="data" required/>
+                                        </div>
+                                    </div>
+                                            
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="status">Status:</label>
+                                            <select class="form-control" name="status" required>
+                                                <option value="">Selecione</option>
+                                                <option value="0">Aprovada</option>
+                                                <option value="6">Encerrada</option>
+                                                <option value="7">Devolvida</option>
+                                                <option value="8">Submetida</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row filtro_form hide" id="periodo">
+                        <div class="col-lg-12">
+                            <form th:action="@{/dashboard/auditor/requisicoes/filtrar/periodo}" method="GET">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="from">A partir de:</label>
+                                            <input type="date" class="form-control" name="from" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="to">Até:</label>
+                                            <input type="date" class="form-control" name="to" required/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="status">Status:</label>
+                                            <select class="form-control" name="status" required>
+                                                <option value="">Selecione</option>
+                                                <option value="0">Aprovada</option>
+                                                <option value="6">Encerrada</option>
+                                                <option value="7">Devolvida</option>
+                                                <option value="8">Submetida</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row filtro_form hide" id="ano">
+                        <div class="col-lg-12">
+                            <form th:action="@{/dashboard/auditor/requisicoes/filtrar/ano}" method="GET">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="data">Ano:</label>
+                                            <input type="number" class="form-control" name="ano" value="2018" min="2018" step="1" required/>
+                                        </div>
+                                    </div>
+                                            
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="status">Status:</label>
+                                            <select class="form-control" name="status" required>
+                                                <option value="">Selecione</option>
+                                                <option value="0">Aprovada</option>
+                                                <option value="6">Encerrada</option>
+                                                <option value="7">Devolvida</option>
+                                                <option value="8">Submetida</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

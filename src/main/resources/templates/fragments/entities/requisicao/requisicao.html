@@ -1,0 +1,120 @@
+<th:block th:fragment="requisicao_inputs">
+    <div class="row" th:object="${requisicao}">
+        <div class="col-lg-6">
+            <input type="hidden" th:name="${'requisicao_id'}" th:value="${requisicao.id}">
+
+            <div class="form-group">
+                <label for="tipoRequisicao">Tipo de Requisição:</label>
+
+                <select name="tipoRequisicao" class="form-control" id="tipoRequisicao" th:field="*{tipoRequisicao}"
+                        autofocus required>
+                    <option th:value="NULL" selected>Selecione</option>
+                    <option th:value="${tiposRequisicao[0].id()}">Atividade Administrativa</option>
+                    <option th:value="${tiposRequisicao[1].id()}">Atividade Acadêmica</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="unidade">Unidade/Departamento:</label>
+
+                <select name="unidade" class="form-control" id="unidade" th:field="*{unidade}" autofocus required>
+                    <option th:value="NULL" selected>Selecione</option>
+                    <option th:each="u : ${unidades}" th:value="${u.id}" th:text="${u.nome}"></option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" th:object="${requisicao}">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="dataRequisicao">Data da viagem: </label>
+                <input type="date" class="form-control" id="dataRequisicao" name="dataRequisicao"
+                       th:value="${#temporals.format(requisicao.dataRequisicao,'yyyy-MM-dd')}" required autofocus />
+            </div>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Solicitações:</label>
+
+                <div class="form-control text-center">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="solicitacoes_options" id="possuiDiaria" name="possuiDiaria"
+                               th:field="*{diaria}"
+                               th:value="${requisicao.diaria != null && requisicao.diaria.id != null} ? ${requisicao.diaria.id} : 'Diária'"
+                               th:disabled="${sistemaBloqueadoDiariaPassagem}">
+                        Diária
+                    </label>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="solicitacoes_options" id="possuiPassagem" name="possuiPassagem"
+                               th:field="*{passagem}"
+                               th:value="${requisicao.passagem != null && requisicao.passagem.id != null} ? ${requisicao.passagem.id} : 'Passagem'"
+                               th:disabled="${sistemaBloqueadoDiariaPassagem}">
+                        Passagem
+                    </label>
+
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="solicitacoes_options" id="possuiTransporte"
+                               name="possuiTransporte" th:field="*{transporte}"
+                               th:value="${requisicao.transporte != null && requisicao.transporte.id != null} ? ${requisicao.transporte.id} : 'Transporte'">
+                        Transporte Oficial
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" th:object="${requisicao}">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="titulo">Motivo da Viagem: </label>
+                <select name="titulo" class="form-control" id="titulo" th:field="*{titulo}" required autofocus>
+                    <option value="Nacional - A serviço">Nacional - A serviço</option>
+                    <option value="Nacional - Congresso">Nacional - Congresso</option>
+                    <option value="Nacional - Convocação">Nacional - Convocação</option>
+                    <option value="Nacional - Encontro/Seminário"> Nacional - Encontro/Seminário</option>
+                    <option value="Nacional - Treinamento">Nacional - Treinamento</option>
+                    <option value="Internacional - A serviço"> Internacional - A serviço</option>
+                    <option value="Internacional - Congresso">Internacional - Congresso</option>
+                    <option value="Internacional - Convocação">Internacional - Convocação</option>
+                    <option value="Internacional - Encontro/Seminário"> Internacional - Encontro/Seminário</option>
+                    <option value="Internacional - Treinamento">Internacional - Treinamento</option>
+                    <option value="Aula de Campo">Aula de Campo</option>
+                    <option value="Conduzir Veículo Oficial">Conduzir Veículo Oficial</option>
+                    <option value="Participação em Banca">Participação em Banca</option>
+                    <option value="Reunião Administrativa">Reunião Administrativa</option>
+                    <option value="CEPEC/CONSUNI">CEPEC/CONSUNI</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="outroMotivoRequisicao" class="col-lg-6 hide">
+            <div class="form-group">
+                <label for="outroMotivoRequisicao">Outro motivo: </label>
+                <input type="text" name="outroMotivoRequisicao" id="outroMotivoRequisicao" class="form-control"
+                       maxlength="60" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row" th:object="${requisicao}">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="justificativa">Descrição: </label>
+
+                <textarea class="form-control" name="justificativa" rows="10" id="justificativa"
+                          th:field="*{justificativa}" maxlength="1000" required autofocus />
+
+                <p class="text-left">
+                    <strong id="caracteresRestantes">Restam 1000 caracteres.</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</th:block>

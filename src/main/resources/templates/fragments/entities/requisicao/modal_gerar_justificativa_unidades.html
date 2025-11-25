@@ -1,0 +1,42 @@
+<th:block th:fragment="modal_gerar_justificativa_unidades">
+    <form id="modal_gerar_justificativa_unidades_form" target="_blank" th:action="@{${LINK_JUSTIFICATIVA}}" method="POST">
+        <div id="modal_gerar_justificativa_unidades" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">
+                            Justificativa de pedido fora do prazo legal
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Nome do responsável pela justificativa:</label>
+                                    <input required="required" class="form-control" type="text" name="responsavel"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>[...]fora do prazo legal de quinze dias de antecedência devido a(o):</label>
+                                    <textarea required="required" class="form-control" name="motivo"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" id="btn_modal_justificativa_">Gerar justificativa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</th:block>

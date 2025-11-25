@@ -1,0 +1,50 @@
+<th:block th:fragment="modal_inserir_dados_scdp">
+    <form id="modal_inserir_dados_scdp_form" th:object="${infoSCDP}" th:action="@{'/dashboard/auditor/requisicoes/detalhes/' + ${requisicao.id} +'/infoSCDP'}" method="POST">
+        <div id="modal_inserir_dados_scdp" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        <h4 class="modal-title text-center">
+                            Informações dos dados gerados no SCDP
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <input type="hidden" name="id" th:field="*{id}">
+                                    <label>Número SCDP: </label>
+                                    <input required="required" class="form-control" type="text" name="numeroScdp" th:field="*{numeroScdp}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Valor da Diária: </label>
+                                    <input required="required" class="form-control" id="__valorDiaria" type="text" name="valorDiaria" th:field="*{valorDiaria}" />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Valor da Passagem: </label>
+                                    <input required="required" class="form-control" id="__valorPassagem" type="text" name="valorPassagem" th:field="*{valorPassagem}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</th:block>

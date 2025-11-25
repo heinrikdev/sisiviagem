@@ -1,0 +1,101 @@
+name: Docker Image CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Build with Maven
+        run: mvn -B package -DskipTests --file pom.xml
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_GITHUB }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image (multi-arch)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy:
+    needs: build-and-push-image
+    runs-on: self-hosted
+
+    steps:
+      - name: Check for and remove old Docker containers
+        run: |
+          CONTAINERS=$(docker ps -a -q --filter "ancestor=ghcr.io/${{ github.repository }}:main")
+          if [ -n "$CONTAINERS" ]; then
+            docker rm -f $CONTAINERS
+          fi
+
+      - name: Check for and remove old Docker images
+        run: |
+          IMAGES=$(docker images -q ghcr.io/${{ github.repository }}:main)
+          if [ -n "$IMAGES" ]; then
+            docker rmi -f $IMAGES
+          fi
+
+      - name: Run docker container
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+          IS_PRODUCTION: ${{ secrets.IS_PRODUCTION }}
+          LDAP_HOST: ${{ secrets.LDAP_HOST }}
+          LDAP_PASSWORD: ${{ secrets.LDAP_PASSWORD }}
+          LDAP_SUFFIXBASE: ${{ secrets.LDAP_SUFFIXBASE }}
+          LDAP_USER: ${{ secrets.LDAP_USER }}
+          WEB_URL: ${{ secrets.WEB_URL }}
+
+        run: |
+          docker run -d --restart unless-stopped -p 8081:80 \
+          -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
+          -e DB_URL="${{ secrets.DB_URL }}" \
+          -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
+          -e EMAIL_PASSWORD="${{ secrets.EMAIL_PASSWORD }}" \
+          -e EMAIL_USERNAME="${{ secrets.EMAIL_USERNAME }}" \
+          -e IS_PRODUCTION="${{ secrets.IS_PRODUCTION }}" \
+          -e LDAP_HOST="${{ secrets.LDAP_HOST }}" \
+          -e LDAP_PASSWORD="${{ secrets.LDAP_PASSWORD }}" \
+          -e LDAP_SUFFIXBASE="${{ secrets.LDAP_SUFFIXBASE }}" \
+          -e LDAP_USER="${{ secrets.LDAP_USER }}" \
+          -e WEB_URL="${{ secrets.WEB_URL }}" \
+          ghcr.io/${{ github.repository }}:main

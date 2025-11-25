@@ -1,0 +1,61 @@
+<!--/*
+    HÁ DIVERGÊNCIA ENTRE O QUE FOI PLANEJADO E EXCUTADO NA VIAGEM, POR ISSO HÁ A POSSIBILIDADE
+    DE ADD NOVOS ANEXOS.
+*/-->
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel shadow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4 th:text="'Requisição ' + ${requisicao.id} + ' - ' + ${requisicao.proposto.nome}"></h4>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p class="text-justify">
+                                        <b>Descrição: </b>
+                                        <span th:text="${requisicao.justificativa}"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form th:action="@{/dashboard/proposto/requisicao/prestacao_contas/divergencia}" method="POST" enctype="multipart/form-data">
+                            <div class="panel-body">
+                                <!--/* INPUTS ANEXO */-->
+                                <th:block th:include="fragments/entities/requisicao/anexo :: anexo_inputs"></th:block>
+
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-default btn-block" th:formaction="@{/dashboard/proposto/requisicao/prestacao_contas/divergencia/add_anexo}">
+                                                <i class="fa fa-plus"></i>
+                                                Adicionar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--/* TABLE ANEXO */-->
+                                <th:block th:include="fragments/entities/requisicao/listar_anexos :: listar_anexos"></th:block>
+                            </div>
+
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-lg-2 pull-right">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </th:block>
+</th:block>

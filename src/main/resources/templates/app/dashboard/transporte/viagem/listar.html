@@ -1,0 +1,86 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-lg-4 text-left">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viagem_modal_filtro">
+                                        <b>Filtrar </b>
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-center">
+                                <div class="form-group">
+                                    <p class="text-center" th:text="'Exibindo ' + ${pageViagem.pageable.pageNumber + 1} + ' de ' + ${pageViagem.totalPages} + ' página(s).'"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-right">
+                                <div class="form-group">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a role="button" th:href="${paginaAnterior}" th:classappend="${pageViagem.hasPrevious() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página anterior
+                                        </a>
+                                        <a role="button" th:href="${proximaPagina}" th:classappend="${pageViagem.hasNext() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página seguinte
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <th:block th:include="fragments/listar_panel_viagens :: listar_panel_viagens"></th:block>
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-4 text-left">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viagem_modal_filtro">
+                                        <b>Filtrar </b>
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-center">
+                                <div class="form-group">
+                                    <p class="text-center" th:text="'Exibindo ' + ${pageViagem.pageable.pageNumber + 1} + ' de ' + ${pageViagem.totalPages} + ' página(s).'"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-right">
+                                <div class="form-group">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a role="button" th:href="${paginaAnterior}" th:classappend="${pageViagem.hasPrevious() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página anterior
+                                        </a>
+                                        <a role="button" th:href="${proximaPagina}" th:classappend="${pageViagem.hasNext() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página seguinte
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <th:block th:include="fragments/modal_filtros/viagem/viagem_modal_filtro :: viagem_modal_filtro"></th:block>
+    </th:block>
+    <th:block th:fragment="scriptjs">
+        <script src="/js/filtrar_viagem_modal.js"></script>
+    </th:block>
+</th:block>

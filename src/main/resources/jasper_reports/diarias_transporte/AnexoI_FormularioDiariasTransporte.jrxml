@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="requisicao_diarias_passagens"
+              pageWidth="595"
+              pageHeight="842"
+              columnWidth="555"
+              leftMargin="20"
+              rightMargin="20"
+              topMargin="20"
+              bottomMargin="20">
+
+    <field name="nomeCompleto" class="java.lang.String"/>
+    <field name="dataNascimento" class="java.lang.String"/>
+    <field name="nomeMae" class="java.lang.String"/>
+    <field name="cpf" class="java.lang.String"/>
+    <field name="rg" class="java.lang.String"/>
+    <field name="matriculaSiape" class="java.lang.String"/>
+    <field name="cargoFuncao" class="java.lang.String"/>
+    <field name="lotacaoOrgao" class="java.lang.String"/>
+    <field name="telefone" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="numeroBanco" class="java.lang.String"/>
+    <field name="agencia" class="java.lang.String"/>
+    <field name="contaCorrente" class="java.lang.String"/>
+    <field name="objetoViagem" class="java.lang.String"/>
+    <field name="dataInicio" class="java.lang.String"/>
+    <field name="dataTermino" class="java.lang.String"/>
+    <field name="origem1" class="java.lang.String"/>
+    <field name="destino1" class="java.lang.String"/>
+    <field name="transporte1" class="java.lang.String"/>
+    <field name="origem2" class="java.lang.String"/>
+    <field name="destino2" class="java.lang.String"/>
+    <field name="transporte2" class="java.lang.String"/>
+    <field name="horaInicioMissao" class="java.lang.String"/>
+    <field name="tempoDeslocamento" class="java.lang.String"/>
+    <field name="horaFimMissao" class="java.lang.String"/>
+    <field name="tempoDeslocamentoVolta" class="java.lang.String"/>
+
+    <title>
+        <band height="60">
+            <staticText>
+                <reportElement x="200" y="10" width="155" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[ANEXO I]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="30" width="255" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[REQUISIÇÃO DE DIÁRIAS E PASSAGENS]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <detail>
+        <band height="650">
+            <!-- TIPO DE PROPOSTO -->
+            <staticText>
+                <reportElement x="0" y="0" width="140" height="15"/>
+                <textElement>
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[1 – TIPO DE PROPOSTO:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="15" width="555" height="15"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[( x ) Servidor ( ) Servidor Convidado ( ) Colaborador eventual ( ) Outros. Especificar:]]></text>
+            </staticText>
+
+            <!-- DADOS DO REQUERENTE -->
+            <staticText>
+                <reportElement x="0" y="40" width="140" height="15"/>
+                <textElement>
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[2 - DADOS DO REQUERENTE]]></text>
+            </staticText>
+
+            <!-- Primeira linha da tabela: NOME COMPLETO e DATA DE NASCIMENTO -->
+            <staticText>
+                <reportElement x="0" y="60" width="110" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[NOME COMPLETO:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="110" y="60" width="290" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nomeCompleto}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="400" y="60" width="120" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[DATA DE NASCIMENTO:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="520" y="60" width="35" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{dataNascimento}]]></textFieldExpression>
+            </textField>
+
+            <!-- Segunda linha: NOME DA MÃE -->
+            <staticText>
+                <reportElement x="0" y="80" width="110" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[NOME DA MÃE:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="110" y="80" width="445" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nomeMae}]]></textFieldExpression>
+            </textField>
+
+            <!-- Terceira linha: CPF, RG, MATRÍCULA SIAPE -->
+            <staticText>
+                <reportElement x="0" y="100" width="40" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[CPF:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="40" y="100" width="120" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="160" y="100" width="40" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[RG:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="200" y="100" width="120" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="320" y="100" width="120" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[MATRÍCULA SIAPE:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="440" y="100" width="115" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{matriculaSiape}]]></textFieldExpression>
+            </textField>
+
+            <!-- Quarta linha: CARGO/FUNÇÃO, LOTAÇÃO/ÓRGÃO -->
+            <staticText>
+                <reportElement x="0" y="120" width="100" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[CARGO/FUNÇÃO:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="100" y="120" width="180" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cargoFuncao}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="280" y="120" width="120" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[LOTAÇÃO/ÓRGÃO:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="400" y="120" width="155" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{lotacaoOrgao}]]></textFieldExpression>
+            </textField>
+
+            <!-- Quinta linha: TELEFONE, E-MAIL -->
+            <staticText>
+                <reportElement x="0" y="140" width="100" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TELEFONE(DDD)]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="100" y="140" width="120" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{telefone}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="220" y="140" width="60" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[E-MAIL:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="280" y="140" width="275" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+
+            <!-- DADOS BANCÁRIOS -->
+            <staticText>
+                <reportElement x="0" y="180" width="140" height="15"/>
+                <textElement>
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[3 - DADOS BANCÁRIOS]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="0" y="200" width="200" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[NÚMERO E NOME DO BANCO:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="200" y="200" width="185" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{numeroBanco}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="385" y="200" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[AGÊNCIA:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="455" y="200" width="100" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{agencia}]]></textFieldExpression>
+            </textField>
+
+            <!-- Segunda linha dados bancários -->
+            <staticText>
+                <reportElement x="0" y="220" width="200" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[CONTA CORRENTE:]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="200" y="220" width="355" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{contaCorrente}]]></textFieldExpression>
+            </textField>
+
+            <!-- OBJETO DA VIAGEM -->
+            <staticText>
+                <reportElement x="0" y="260" width="555" height="15"/>
+                <textElement>
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[4 – OBJETO DA VIAGEM (motivação/vinculação do serviço ou evento aos programas e projetos em]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="275" width="555" height="25"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{objetoViagem}]]></textFieldExpression>
+            </textField>
+
+            <!-- DADOS DA VIAGEM -->
+            <staticText>
+                <reportElement x="0" y="320" width="555" height="15"/>
+                <textElement>
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[5 - DADOS DA VIAGEM: ( )Passagens ( x )Diárias ( )Diárias e Passagens ( )]]></text>
+            </staticText>
+
+            <!-- Cabeçalho da tabela de viagem -->
+            <staticText>
+                <reportElement x="0" y="345" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[DATA]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="70" y="345" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[ORIGEM]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="210" y="345" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[DESTINO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="345" width="205" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TRANSPORTE]]></text>
+            </staticText>
+
+            <!-- Linhas da tabela de viagem -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="365" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="70" y="365" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{origem1}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="365" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{destino1}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="350" y="365" width="205" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{transporte1}]]></textFieldExpression>
+            </textField>
+
+            <!-- Segunda linha da tabela -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="385" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{dataTermino}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="70" y="385" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{origem2}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="385" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{destino2}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="350" y="385" width="205" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{transporte2}]]></textFieldExpression>
+            </textField>
+
+            <!-- Datas da missão -->
+            <staticText>
+                <reportElement x="0" y="420" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[DATA DE INÍCIO DA MISSÃO]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="140" y="420" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{dataInicio}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="280" y="420" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement verticalAlignment="Middle">
+                    <font size="9" isBold="true"/>
+                </textElement>
+                <text><![CDATA[DATA DE TÉRMINO DA MISSÃO]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="420" y="420" width="135" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{dataTermino}]]></textFieldExpression>
+            </textField>
+
+            <!-- Seções IDA e VOLTA -->
+            <staticText>
+                <reportElement x="0" y="460" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[IDA]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="460" width="140" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="10" isBold="true"/>
+                </textElement>
+                <text><![CDATA[VOLTA]]></text>
+            </staticText>
+
+            <!-- Cabeçalhos da tabela de horários -->
+            <staticText>
+                <reportElement x="0" y="480" width="70" height="30"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[HORA DE INÍCIO DA MISSÃO /EVENTO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="70" y="480" width="70" height="30"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TEMPO ESTIMADO DE DESLOCAMENTO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="480" width="70" height="30"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[HORA DO FIM DA MISSÃO /EVENTO]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="480" width="70" height="30"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="8" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TEMPO ESTIMADO DE DESLOCAMENTO]]></text>
+            </staticText>
+
+            <!-- Valores dos horários -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="510" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{horaInicioMissao}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="70" y="510" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{tempoDeslocamento}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="280" y="510" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{horaFimMissao}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="350" y="510" width="70" height="20"/>
+                <box>
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="9"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{tempoDeslocamentoVolta}]]></textFieldExpression>
+            </textField>
+
+            <!-- Observações -->
+            <staticText>
+                <reportElement x="0" y="550" width="555" height="12"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[Obs.: os horários informados serão considerados para a emissão dos bilhetes de passagem]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="0" y="565" width="555" height="20"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[* Os horários a serem descritos aqui têm por objetivo dar ao Solicitante de Passagem as informações necessárias para realizar a cotação de preços e a consequente compra da passagem que atenda aos critérios de interesse da Administração, vedada escolha pelo Proposto.]]></text>
+            </staticText>
+
+            <!-- Assinaturas -->
+            <line>
+                <reportElement x="70" y="615" width="140" height="1"/>
+            </line>
+            <staticText>
+                <reportElement x="70" y="620" width="140" height="12"/>
+                <textElement textAlignment="Center">
+                    <font size="9"/>
+                </textElement>
+                <text><![CDATA[Assinatura]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="70" y="632" width="140" height="12"/>
+                <textElement textAlignment="Center">
+                    <font size="9"/>
+                </textElement>
+                <text><![CDATA[Servidor]]></text>
+            </staticText>
+
+            <line>
+                <reportElement x="345" y="615" width="140" height="1"/>
+            </line>
+            <staticText>
+                <reportElement x="345" y="620" width="140" height="12"/>
+                <textElement textAlignment="Center">
+                    <font size="9"/>
+                </textElement>
+                <text><![CDATA[Assinatura]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="295" y="632" width="240" height="12"/>
+                <textElement textAlignment="Center">
+                    <font size="9"/>
+                </textElement>
+                <text><![CDATA[Pró-Reitor de Administração e Finanças da UFJ]]></text>
+            </staticText>
+
+        </band>
+    </detail>
+
+</jasperReport>

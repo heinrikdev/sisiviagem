@@ -1,0 +1,15 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                    </div>
+                    <div class="panel-body">
+                        <th:block th:include="fragments/entities/viagem/table_add_veiculo :: table_add_veiculo"></th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>

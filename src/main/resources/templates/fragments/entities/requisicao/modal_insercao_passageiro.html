@@ -1,0 +1,56 @@
+<th:block th:fragment="modal_insercao_passageiro">
+    <div id="modal_insercao_passageiro" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" id="closeModalPassageiro1">&times;</button>
+                    <h4 class="modal-title">Inserção de passageiro</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row" th:if="${show_modal_passageiro == null || show_modal_passageiro == false }">
+                        <div class="col-sm-12" id="searchPassageiro">
+                            <label for="passageiroNome">Pesquisar passageiro:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="searchPassageiro" id="nomePassageiro" placeholder="Insira o nome completo...">
+
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="buscarPassageiros" style="height:33.99px;">Buscar</button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 hide" id="listaPassageiros">
+                            <table class="display" id="tableListaPassageiros" style="width:100%">
+                                <thead>
+                                    <th>Nome</th>
+                                    <th class="text-right">CPF</th>
+                                    <th class="text-right">RG</th>
+                                    <th class="text-center">#</th>
+                                </thead>
+
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-sm-12 text-center" id="btnNovoPassageiro" style="margin-top: 15px;margin-bottom: 15;">
+                            <button type="button" class="btn btn-warning btn-flat btn-sm">
+                                Cadastrar novo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="hide" id="formPassageiro">
+                        <th:block th:include="fragments/entities/requisicao/passageiro :: passageiro_inputs"></th:block>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModalPassageiro2">Close</button>
+                    <button type="button" class="btn btn-primary" id="btn_adicionar_passageiro">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

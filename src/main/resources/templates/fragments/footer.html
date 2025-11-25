@@ -1,0 +1,44 @@
+<th:block th:fragment="footer">
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 2.0.0
+        </div>
+        <strong>Copyright &copy; 2016-<span id="ano-atual"></span><a href="https://cercomp.jatai.ufg.br/"> Secretaria de Tecnologia e Informação - UFJ</a>.</strong>
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</th:block>
+
+<th:block th:fragment="footer-default-scripts">
+
+    <!--/* jQuery 3 */-->
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/jquery-validation/jquery.validate.min.js"></script>
+    <!--/* Bootstrap 3.3.7 */-->
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!--/* SlimScroll */-->
+    <script src="/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!--/* FastClick */-->
+    <script src="/assets/fastclick/lib/fastclick.js"></script>
+    <!--/* AdminLTE App */-->
+    <script src="/assets/adminlte/js/adminlte.min.js"></script>
+
+    <!--/* Datatables*/-->
+    <script type="text/javascript" src="/assets/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/assets/DataTables/DataTables-1.10.18/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/DataTables/FixedColumns-3.2.5/js/fixedColumns.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/DataTables/FixedHeader-3.1.4/js/fixedHeader.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/jquerymask/jquery.mask.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+        })
+    </script>
+    <script>
+        var dataAtual = new Date();
+        var anoAtual = dataAtual.getFullYear();
+        document.getElementById("ano-atual").innerHTML = anoAtual;
+    </script>
+    <script src="/js/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.js" integrity="sha256-K3qK8ynOxhJVloLac0CTWwr7iFKVDZF4Gd2yEsiAZYA=" crossorigin="anonymous"></script>
+</th:block>

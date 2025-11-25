@@ -1,0 +1,40 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="panel shadow">
+            <form th:action="@{/dashboard/admin/unidade/formulario}" th:object="${unidade}" method="POST">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="addon-nome">Nome:</span>
+                                    <input type="hidden" name="id" th:field="*{id}" th:value="${unidade.id}">
+                                    <input type="text" name="nome" id="nome" class="form-control" th:field="*{nome}" placeholder="Unidade ou departamento" aria-label="nome" aria-describedby="addon-nome">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="addon-unidadeDepartamento">Tipo:</span>
+                                    <select class="form-control" th:field="*{unidadeDepartamento}" name="unidadeDepartamento" id="unidadeDepartamento" required="true" aria-label="addon-unidadeDepartamento" aria-describedby="unidadeDepartamento">
+                                        <option th:value="NULL" selected>Selecione</option>
+                                        <option th:each="u : ${unidadesDepartamento}" th:value="${u.id()}" th:text="${u}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-1">
+                            <div class="form-group">
+                                <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <button type="submit" role="submit" class="btn btn-primary btn-block btn-flat"><b>Salvar</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </th:block>
+</th:block>

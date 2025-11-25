@@ -1,0 +1,62 @@
+<th:block th:fragment="listar_viagem">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover" style="width:100%">
+                <thead>
+                    <th>N°</th>
+                    <th>Título</th>
+                    <th>Data de Partida</th>
+                    <th></th>
+                </thead>
+
+                <tbody>
+                    <th:block th:each="viagem : ${viagens}">
+                        <tr>
+                            <td th:text="${'VIAGEM ' + viagem.id}"></td>
+                            <td th:text="${viagem.titulo}"></td>
+                            <td th:text="${{viagem.data} + ' ' + viagem.startHora}"></td>
+                            <td>
+                                <a class="btn-descricao-viagem btn btn-xs btn-primary " th:attr="data-id=${viagem.id},data-titulo=${viagem.titulo},data-descricao=${viagem.descricao}">
+                                    Descrição
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>
+
+                                <a class="btn btn-default btn-xs " th:href="@{'/dashboard/transporte/viagem/' + ${viagem.id} + '/detalhes'}">
+                                    Acessar
+                                    <i class="fa fa-external-link"></i>
+                                </a>
+
+                                <a class="btn btn-danger btn-xs" th:href="@{'/dashboard/transporte/requisicoes/remover_viagem/' + ${viagem.id} + '/' + ${requisicao.id}}" >
+                                    Remover
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+
+            <!--/*  Modal */-->
+            <div id="viagemDetalhes" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!--/*  Modal content */-->
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" id="viagemDetalhesTitulo"></h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p style="white-space: pre-line; margin-top: 10px;" id="viagemDescricao"></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-default" data-dismiss="modal">Fechar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

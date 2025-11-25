@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9a163c2-bd36-4728-8e31-4042c43078ca">
+	<property name="ireport.zoom" value="0.9090909090909095"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#CCCCCC">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#EEEEEE">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.0" lineColor="#000000"/>
+			<bottomPen lineWidth="0.15" lineColor="#EDEBEB"/>
+		</box>
+	</style>
+	<subDataset name="TABLE PASSAGEIROS" uuid="34242124-ef9d-4d61-8879-7b2c662e9898">
+		<field name="nome" class="java.lang.String"/>
+		<field name="statusIda" class="java.lang.String"/>
+		<field name="statusVolta" class="java.lang.String"/>
+		<field name="identificacao" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="TABLE TRECHOS" uuid="d5be6618-5eeb-4c2d-98a9-e540a18ada19">
+		<field name="cidadeOrigem" class="java.lang.String"/>
+		<field name="cidadeDestino" class="java.lang.String"/>
+		<field name="estadoOrigem" class="java.lang.String"/>
+		<field name="estadoDestino" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="TABLE ABASTECIMENTOS" uuid="c331387a-060f-4a32-92e5-4000cc4f66b1">
+		<field name="placaVeiculo" class="java.lang.String"/>
+		<field name="tipoCombustivel" class="ufg.br.fabricasw.jatai.swsisviagem.domain.enums.ETipoCombustivel"/>
+		<field name="tipoServico" class="ufg.br.fabricasw.jatai.swsisviagem.domain.enums.ETipoServico"/>
+		<field name="litros" class="java.lang.Double"/>
+		<field name="odometro" class="java.lang.Integer"/>
+		<field name="valor" class="java.lang.Double"/>
+		<field name="observacao" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="PASSAGEIROS" class="java.util.List"/>
+	<parameter name="TRECHOS_IDA" class="java.util.List"/>
+	<parameter name="TRECHOS_VOLTA" class="java.util.List"/>
+	<parameter name="ABASTECIMENTOS" class="java.util.List"/>
+	<parameter name="DATA_FORMATTER" class="java.time.format.DateTimeFormatter"/>
+	<parameter name="HOST" class="java.lang.String"/>
+
+	<field name="identificador" class="java.lang.Integer"/>
+	<field name="codigoVerificacao" class="java.lang.Long"/>
+	<field name="dataEmissao" class="java.time.LocalDate"/>
+	<title>
+		<band height="85">
+			<image scaleImage="RetainShape" hAlign="Right">
+				<reportElement x="723" y="0" width="79" height="79" uuid="33aa17ec-15ed-4824-81fd-e25c80e6d44b"/>
+				<imageExpression><![CDATA["jasper_reports/PNG_VERTICAL_POSITIVA_SEM_DESCRITOR.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="79" y="0" width="644" height="79" uuid="61e47177-0957-44d0-89df-b5df05136735"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Serviço Público Federal
+Universidade Federal de Jataí]]></text>
+			</staticText>
+			<image scaleImage="RetainShape">
+				<reportElement x="0" y="0" width="85" height="85" uuid="65bd995c-b8c3-4bb3-a00b-b108b0c08abd"/>
+				<imageExpression><![CDATA["jasper_reports/brasao.jpeg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="92" splitType="Stretch">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="34" width="802" height="58" uuid="8e335211-c79d-4458-9ff0-9d2b53f3a045"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="TABLE PASSAGEIROS" uuid="be6a33d7-3b69-4ec8-aa19-8e261295fcd7">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{PASSAGEIROS})]]></dataSourceExpression>
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{PASSAGEIROS})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="334" uuid="68877dfb-90f1-4d88-8c47-3e145b240104">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="334" height="30" uuid="c03f54e4-3b83-492e-bac4-6b70900ec437"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Nome]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="334" height="30" uuid="c4f373a7-86b6-464d-b952-c7b7320f4b82"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="267" uuid="b9c90c69-f165-4677-9d7a-9ebb940e55ef">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="267" height="30" uuid="6693f80a-afe7-4b74-808f-a6b222ee8d85"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Identificacao]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="267" height="30" uuid="23c6f7d1-e5b1-4dab-b51f-0ea1eabbe544"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{identificacao}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="a90e8492-e655-41d9-bec9-5cb65935c9b3">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="33b87376-be6c-48e6-96f4-acb91ea2336e"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Status Ida]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="80156112-cff4-4b46-ba84-2a1bec2b3604"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{statusIda}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="6f5adc90-aed0-4c0c-8a13-031d78299e92">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="51e2a8cd-c648-491f-85f6-b824102e783a"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Status Volta]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="b0222e6a-f3b0-4d96-b554-9c2b464f7041"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{statusVolta}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="14" width="802" height="20" uuid="cc95515e-ef06-4f1d-a485-29f96ed40a22"/>
+				<box>
+					<bottomPen lineWidth="0.15" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Relação de Passageiros]]></text>
+			</staticText>
+		</band>
+		<band height="79">
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="20" uuid="c711c402-2b8b-4006-a7eb-2393f45fe03e"/>
+				<box>
+					<topPen lineWidth="0.15" lineColor="#999999"/>
+					<bottomPen lineWidth="0.15" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Trechos de Ida]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="TABLE_TRECHO_IDA" style="table" x="0" y="21" width="802" height="58" uuid="874c43e4-128c-4651-ab43-f5b10be8b951"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="TABLE TRECHOS" uuid="2fcf3b0e-7766-46ac-a0ce-5f31b036db65">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{TRECHOS_IDA})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="334" uuid="71e9a07a-b6d1-4d39-8045-f07c5fffd82b">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="334" height="30" uuid="543f30ec-2ad9-41f3-9ebb-d4cbdfd27d34"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Cidade de Origem]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="334" height="30" uuid="a97c5c3b-36ad-4048-b072-1dad4b2b1f2b"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cidadeOrigem} + " - " + $F{estadoOrigem}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="468" uuid="73a4d7e7-aaf8-48db-a731-771b93472700">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="468" height="30" uuid="01f29943-e784-407b-8a33-d02599346066"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Cidade de Destino]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="468" height="30" uuid="f0528c20-854b-4912-805a-5d7cb1fa8652"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cidadeDestino} + " - " + $F{estadoDestino}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="79">
+			<staticText>
+				<reportElement x="0" y="1" width="802" height="20" uuid="fd07ca4d-22eb-4d1f-bc08-ebbf8d083410"/>
+				<box>
+					<topPen lineWidth="0.15" lineColor="#999999"/>
+					<bottomPen lineWidth="0.15" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Trechos de Volta]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement key="TABLE_TRECHO_IDA" style="table" x="0" y="21" width="802" height="58" uuid="aad14b69-db7f-49b3-8cf7-605060806f1a"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="TABLE TRECHOS" uuid="0c75dbff-80c3-4259-8b93-1366d78405f5">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{TRECHOS_VOLTA})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="334" uuid="37ae086e-de2c-4db8-b0d4-61561c47d416">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="334" height="30" uuid="9c89792b-f52e-4829-b4d2-0b0281ae2402"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Cidade de Origem]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="334" height="30" uuid="09034bae-2fcb-47fd-8a85-735041306347"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cidadeOrigem} + " - " + $F{estadoOrigem}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="468" uuid="caec363a-b9bb-4eae-9a73-d5766640ad43">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="468" height="30" uuid="e23b5e78-04d1-46c9-8188-9a39b29d162d"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Cidade de Destino]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="468" height="30" uuid="3d8d2f54-1727-43fe-91f5-4659d1bd4f78"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cidadeDestino} + " - " + $F{estadoDestino}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="79">
+			<componentElement>
+				<reportElement key="TABLE_TRECHO_IDA" style="table" x="0" y="20" width="802" height="58" uuid="2383436c-0763-4461-aa9b-64637138115e"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="TABLE ABASTECIMENTOS" uuid="43a1a6ea-f5ee-44bc-bfa5-e9f0e0d37983">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{ABASTECIMENTOS})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="100" uuid="da615d2f-3580-4871-9bbb-4a4dd15b06f9">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="85afd621-cb93-445b-8cf2-0f9520f583cf"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Veículo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="e4a3d3dc-a0f2-4a0d-96e5-8b4ffcc4d2cb"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{placaVeiculo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="e874d99b-3a18-4808-80e2-44d537ace75e">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="1d550563-b0e4-4a69-b960-f1a491e0a95a"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Combustível]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="ae299fc5-cc94-4d33-93fc-e38b2d929c51"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{tipoCombustivel}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="56fd1c11-61e4-40d7-a6b1-ffa91db3a6ab">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="33aaafd7-0dcb-44a1-bb68-0943a77e620e"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Serviço]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="9fe0369b-d947-422d-a361-bbc6aecff4f1"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{tipoServico}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="149142b3-d3db-4044-94e3-bb9d2b4f7116">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="dd3469f7-9b4c-49be-8080-e3ae07801cfb"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Quantidade]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="a74ce2ae-b989-4bf3-a95d-38a97a4069a6"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{litros}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="9c0af82e-b74c-4e2a-8742-5584ced67744">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="b31c4a15-d720-4804-a62b-79fbd3e5c947"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Odômetro]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="45ac858d-fcb3-49ec-901d-75b774c49b4e"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{odometro}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="100" uuid="dad290a7-60a3-46d4-af28-3f9dc8f9531b">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="100" height="30" uuid="201f1911-5e97-4eac-9fde-eb4a5646b42d"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Valor R$]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="100" height="30" uuid="89bf4e49-77a3-4074-8918-4bba0c25d901"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="200" uuid="52fbed26-6ce1-4e8c-9d2f-4835300ff653">
+						<jr:columnHeader style="table_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="200" height="30" uuid="882381cb-8846-4e30-8bd5-713e21a38f0f"/>
+								<textElement verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<text><![CDATA[Observações]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table_TD" height="30" rowSpan="1">
+							<textField textAdjust="StretchHeight">
+								<reportElement x="0" y="0" width="200" height="30" uuid="64a2af55-f10d-4081-98eb-31c481e59298"/>
+								<textElement textAlignment="Justified" verticalAlignment="Middle">
+									<font size="12"/>
+									<paragraph leftIndent="5"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{observacao}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="0" y="0" width="802" height="20" uuid="bb5964c3-f808-4595-a3f9-af513bfb2f7c"/>
+				<box>
+					<topPen lineWidth="0.15" lineColor="#999999"/>
+					<bottomPen lineWidth="0.15" lineColor="#999999"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Abastecimentos]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="75">
+			<staticText>
+				<reportElement x="0" y="10" width="802" height="42" uuid="19dbc80a-f7f4-43cb-bb90-f61279673e24"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA["Para verificar a autenticidade deste documento acesse: "+$P{HOST}+"/documentos"]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="52" width="802" height="20" uuid="27c2e25c-54c3-4076-b4cd-7e1e58689108"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Identificador: " + $F{identificador} + " - Código de Verificação: " + $F{codigoVerificacao} + " - Data de Emissão: " + $F{dataEmissao}.format($P{DATA_FORMATTER})]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

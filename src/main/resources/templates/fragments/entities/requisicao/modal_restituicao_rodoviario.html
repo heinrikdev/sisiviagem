@@ -1,0 +1,37 @@
+<!--/* 
+    Ao selecionar a opção de veículo próprio ao adicionar o trecho, o proposto
+    deverá cadastrar as informações do veículo.
+*/-->
+<th:block th:fragment="modal_restituicao_rodoviario">
+    <form id="modal_restituicao_rodoviario_form" method="POST">
+        <div id="modal_restituicao_rodoviario" data-backdrop="static" data-keyboard="false" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">
+                            Dados da Restituição
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Solicitarei Restituição de Valores</label>
+                                    <input type="checkbox" th:checked="${flag}"/>
+                                </div>
+                            </div>
+                    </div>
+z
+                    <div class="modal-footer">
+                        <input type="hidden" th:value="${veiculoProprio.getId()}" name="id">
+                        <button type="button" class="btn btn-success" id="btn_modal_veiculo_proprio_">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</th:block>

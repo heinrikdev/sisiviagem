@@ -1,0 +1,268 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-body">
+                        <div class="row" style="margin-bottom:5px">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-tabs nav-justified">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#viagem">Dados da Viagem</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#passageiros" th:text="'Chamada (Passageiros: '+ ${requisicaoPassageiros.size()} +')'">
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#veiculos">Combustível e outros</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#abastecimentos">Abastecimentos</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#tarefas">Tarefas</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tab-content">
+                            <div id="viagem" class="tab-pane active">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item text-justify">
+                                                <b>Título da viagem:</b><span th:text="${viagem.titulo}"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-6" style="padding-right:1px;">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Data Partida:</b>
+                                                <span th:text="${{viagem.data}}"></span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <b>Data Chegada:</b>
+                                                <span th:text="${{viagem.dataTermino}}"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-xs-6" style="padding-left:1px;">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Hora Partida:</b>
+                                                <span th:text="${viagem.startHora}"></span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <b>Hora Chegada:</b>
+                                                <span th:text="${viagem.endHora}"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row" th:if="${viagem.hasObservacao()}">
+                                    <div class="col-xs-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Observações:</b>
+                                                <p class="text-justify" style="white-space: pre-line;" th:text="${viagem.observacao}"></p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Descrição:</b>
+                                                <p class="text-justify" style="white-space: pre-line;">
+                                                    <th:block th:text="${viagem.descricao}"></th:block>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row" th:if="${viagem.hasObservacao()}">
+                                    <div class="col-xs-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Observação:</b>
+                                                <p class="text-justify" style="white-space: pre-line;">
+                                                    <th:block th:text="${viagem.observacao}"></th:block>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="passageiros" class="tab-pane">
+                                <!--/* TABLE REQUISICAO PASSAGEIROS */-->
+                                <th:block th:include="fragments/motorista/listar_passageiros :: listar_passageiros"></th:block>
+                            </div>
+
+                            <div id="veiculos" class="tab-pane">
+                                <!--/* TABLE VEICULOS */-->
+                                <th:block th:include="fragments/entities/viagem/listar_veiculos :: listar_veiculos"></th:block>
+                            </div>
+
+                            <div id="abastecimentos" class="tab-pane">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!--/* TABLE ABASTECIMENTOS */-->
+                                        <th:block th:include="fragments/entities/viagem/listar_abastecimentos :: listar_abastecimentos"></th:block>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="tarefas" class="tab-pane">
+                                <!--/* TABLE TAREFAS */-->
+                                <th:block th:include="fragments/entities/viagem/listar_tarefas :: listar_tarefas"></th:block>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="btn-group pull-right">
+                                    <a class="btn btn-success btn-flat" th:if="${viagem.isAberta()}" id="btnIniciarViagem" 
+                                        th:attr="data-km-inicial-inserido=${viagem.hasQuilometragemInicialInserida()}, data-viagem-id=${viagem.id}">
+                                        Iniciar Viagem
+                                    </a>
+
+                                    <a class="btn bg-purple btn-flat" id="btnEncerrarViagem" th:attr="data-km-final-inserido=${viagem.hasQuilometragemFinalInserida()}" th:if="${viagem.isEmAdamento()}">
+                                        Encerrar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="passageiroDetalhes" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title text-center" id="passageiroNome"></h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>Identificação: </b>
+                                        <p class="text-justify" id="identificacao"></p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>RG: </b>
+                                        <p class="text-justify" id="rg"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>Tipo sanguíneo: </b>
+                                        <p class="text-justify" id="tipoSanguineo"></p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>Telefone: </b>
+                                        <p class="text-justify" id="telefone"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <b>Motivo: </b>
+                                        <p class="text-justify" id="motivo"></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="observacaoViagemModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{/dashboard/motorista/viagem/detalhes/encerrar/} + ${viagem.id}" method="POST">
+                        <div class="modal-header">
+                            <h3 class="modal-title text-center" th:text="${ 'Término da Viagem ' + viagem.id}"></h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="observacao">Observações:</label>
+                                        <textarea name="observacao" class="form-control" placeholder="Se houver alguma observação, digite aqui." maxlength="254"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <button class="btn bg-purple" type="submit">Encerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <th:block th:include="fragments/entities/viagem/modal_adicionar_quilometragem :: modal_adicionar_quilometragem"></th:block>
+        <th:block th:include="fragments/entities/viagem/detalhes_tarefa_modal :: detalhes_tarefa_modal"></th:block>
+        <th:block th:include="fragments/entities/viagem/adicionar_abastecimento_modal :: adicionar_abastecimento_modal"></th:block>
+        <th:block th:include="fragments/entities/viagem/avaliar_tarefa_modal :: avaliar_tarefa_modal"></th:block>
+    </th:block>
+
+    <th:block th:fragment="scriptjs">
+        <script src="/js/motorista_viagem_detalhes.js"></script>
+        <script src="/js/listar_veiculo.js"></script>
+        <script src="/js/motorista_passageiros.js"></script>
+        <script src="/js/adicionar_abastecimento.js"></script>
+        <script src="/js/motorista_viagem_quilometragem_modal.js"></script>
+    </th:block>
+</th:block>

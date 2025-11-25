@@ -1,0 +1,109 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-lg-4 text-left">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalMotoristaFiltrar">
+                                        <b>Filtrar </b>
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-center">
+                                <div class="form-group">
+                                    <p class="text-center" th:text="'Exibindo ' + ${pageMotorista.pageable.pageNumber + 1} + ' de ' + ${pageMotorista.totalPages} + ' página(s).'"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-right">
+                                <div class="form-group">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a role="button" th:href="${paginaAnterior}" th:classappend="${pageMotorista.hasPrevious() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página anterior
+                                        </a>
+                                        <a role="button" th:href="${proximaPagina}" th:classappend="${pageMotorista.hasNext() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página seguinte
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table table-hover display nowrap table-striped" style="width:100%">
+                                    <thead>
+                                        <th>Nome</th>
+                                        <th>Habilitação</th>
+                                        <th>Data de Expedição</th>
+                                        <th>Data de Validade</th>
+                                        <th>Credencial</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Ativar/Desativar</th>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr th:each="motorista : ${pageMotorista.content}">
+
+                                            <td th:text="${motorista.pessoa.nome}"></td>
+                                            <td th:text="${motorista.habilitacao}"></td>
+                                            <td th:text="${{motorista.dataExpedicao}}"></td>
+                                            <td th:text="${{motorista.dataValidade}}"></td>
+                                            <td th:text="${motorista.credencial}"></td>
+
+                                            <td class="text-center">
+                                                <a class="btn btn-secondary btn-flat" th:href="@{/dashboard/transporte/motorista/} + ${motorista.id}">
+                                                    <i class="fa fa-pencil-square-o fa-fw"></i>
+                                                </a>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <a class="btn btn-secondary btn-flat" th:href="@{/dashboard/transporte/motorista/alternar_status/} + ${motorista.id} + '/' + ${motorista.isAtivo}">
+                                                    <i class="fa fa-fw" th:classappend="${motorista.isAtivo ? 'fa-check' : 'fa-close'}"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="fragments/modal_filtros/transporte/motorista/motorista_modal_filtro.html :: motorista_modal_filtro"></th:block>
+    </th:block>
+
+    <th:block th:fragment="scriptjs">
+        <script>
+            $(document).ready(() => {
+                const tables = $('table');
+
+                for (var i = 0; i < tables.length; i++) {
+
+                    $(tables[i]).DataTable();
+                }
+            });
+        </script>
+        <script>
+            $(document).ready(() => {
+                $("#tipoFiltro").change((event) => {
+
+                    let filtroSelecionado = $(event.target).val();
+
+                    $('.filtro_form').addClass('hide');
+                    $(filtroSelecionado).removeClass('hide');
+                });
+            });
+        </script>
+    </th:block>
+</th:block>

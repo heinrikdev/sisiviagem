@@ -1,0 +1,169 @@
+<?xml version="1.0" ?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RequisicaoDiariasPassagens" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="22345678-1234-1234-1234-123456789abc">
+  <parameter name="TipoProposto" class="java.lang.String"/>
+  <parameter name="NomeCompleto" class="java.lang.String"/>
+  <parameter name="DataNascimento" class="java.lang.String"/>
+  <parameter name="NomeMae" class="java.lang.String"/>
+  <parameter name="CPF" class="java.lang.String"/>
+  <parameter name="RG" class="java.lang.String"/>
+  <parameter name="Passaporte" class="java.lang.String"/>
+  <parameter name="MatriculaSIAPE" class="java.lang.String"/>
+  <parameter name="CargoFuncao" class="java.lang.String"/>
+  <parameter name="LotacaoOrgao" class="java.lang.String"/>
+  <parameter name="TelefoneCelular" class="java.lang.String"/>
+  <parameter name="Email" class="java.lang.String"/>
+  <parameter name="AuxilioAlimentacao" class="java.lang.String"/>
+  <parameter name="AuxilioTransporte" class="java.lang.String"/>
+  <parameter name="Banco" class="java.lang.String"/>
+  <parameter name="Agencia" class="java.lang.String"/>
+  <parameter name="ContaCorrente" class="java.lang.String"/>
+  <parameter name="DataInicioMissao" class="java.lang.String"/>
+  <parameter name="DataTerminoMissao" class="java.lang.String"/>
+  <parameter name="DataOrigem" class="java.lang.String"/>
+  <parameter name="DataDestino" class="java.lang.String"/>
+  <parameter name="TipoTransporte" class="java.lang.String"/>
+  <parameter name="HoraInicioMissao" class="java.lang.String"/>
+  <parameter name="TempoEstimadoDeslocamentoIda" class="java.lang.String"/>
+  <parameter name="HoraFimMissao" class="java.lang.String"/>
+  <parameter name="TempoEstimadoDeslocamentoVolta" class="java.lang.String"/>
+  <parameter name="ObjetoViagem" class="java.lang.String"/>
+  <detail>
+    <band height="800">
+      <textField>
+        <reportElement x="10" y="10" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{TipoProposto}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="38" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{NomeCompleto}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="66" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{DataNascimento}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="94" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{NomeMae}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="122" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{CPF}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="150" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{RG}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="178" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{Passaporte}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="206" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{MatriculaSIAPE}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="234" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{CargoFuncao}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="262" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{LotacaoOrgao}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="290" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{TelefoneCelular}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="318" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{Email}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="346" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{AuxilioAlimentacao}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="374" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{AuxilioTransporte}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="402" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{Banco}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="430" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{Agencia}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="458" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{ContaCorrente}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="486" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{DataInicioMissao}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="514" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{DataTerminoMissao}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="542" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{DataOrigem}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="570" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{DataDestino}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="598" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{TipoTransporte}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="626" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{HoraInicioMissao}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="654" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{TempoEstimadoDeslocamentoIda}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="682" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{HoraFimMissao}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="710" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{TempoEstimadoDeslocamentoVolta}]]&gt;</textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="10" y="738" width="535" height="20"/>
+        <textElement/>
+        <textFieldExpression>&lt;![CDATA[$P{ObjetoViagem}]]&gt;</textFieldExpression>
+      </textField>
+    </band>
+  </detail>
+</jasperReport>

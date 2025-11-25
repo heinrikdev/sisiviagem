@@ -1,0 +1,57 @@
+<th:block th:fragment="table_add_motoristas">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="bg-blue" style="padding: .5rem;margin-bottom: 10px">
+                <i class="fa fa-pencil fa-fw"></i>
+                Motoristas
+            </div>
+
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th>Nome</th>
+                    <th class="text-center"></th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="motorista, iteration : ${motoristas}">
+                        <td th:text="${motorista.pessoa.nome}"></td>
+                        <td class="text-right">
+                            <button type="submit" class="btn btn-secondary btn-flat" th:formaction="@{/dashboard/transporte/viagem/adicionar_motorista/} + ${iteration.index}">
+                                <i class="fa fa-plus"></i>
+                                Adicionar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="bg-blue" style="padding: .5rem;margin-bottom: 10px">
+                <i class="fa fa-pencil fa-fw"></i>
+                Motoristas Adicionados
+            </div>
+
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th>Nome</th>
+                    <th class="text-center"></th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="motorista, iteration : ${motoristasAdicionados}">
+                        <td th:text="${motorista.pessoa.nome}"></td>
+                        <td class="text-right">
+                            <button type="submit" class="btn btn-secondary btn-flat" th:formaction="@{/dashboard/transporte/viagem/remover_motorista/} + ${iteration.index}">
+                                <i class="fa fa-remove"></i>
+                                Remover
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

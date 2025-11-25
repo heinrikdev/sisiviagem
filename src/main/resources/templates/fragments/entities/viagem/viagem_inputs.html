@@ -1,0 +1,53 @@
+<th:block th:fragment="viagem_inputs">
+    <div class="row">
+        <input type="hidden" th:name="viagem_id" th:value="${viagem.id}">
+
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label>Título:</label>
+                <input class="form-control"  type="text" th:name="viagem_titulo" th:value="${viagem.titulo}" required="required"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Data Ida (dd/mm/aaaa):</label>
+                <input class="form-control"  type="date" id="data" th:name="data" th:value="${#temporals.format(viagem.data,'yyyy-MM-dd')}" required="required"/>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Hora da Partida (00:00):</label>
+                <input class="form-control"  type="time"  id="hora" th:name="startHora" th:value="${viagem.startHora}" required="required">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Data Volta (dd/mm/aaaa):</label>
+                <input class="form-control"  type="date" id="dataVolta" th:name="dataTermino" th:value="${#temporals.format(viagem.dataTermino,'yyyy-MM-dd')}" required="required"/>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Hora da Chegada (00:00):</label>
+                <input class="form-control"  type="time"  id="horaChegada" th:name="endHora" th:value="${viagem.endHora}" required="required"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="viagem_descricao">Descrição:</label>
+                <textarea class="form-control" style="min-width: 100%" th:name="viagem_descricao" th:value="${viagem.descricao}" th:text="${viagem.descricao}" required></textarea>
+            </div>
+        </div>
+    </div>
+</th:block>

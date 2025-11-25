@@ -1,0 +1,40 @@
+<th:block th:fragment="main_devolucao">
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+            <li class="active" th:if="${requisicao.hasDiaria()}">
+                <a href="#tab_1" data-toggle="tab" aria-expanded="true">
+                    Diária
+                </a>
+            </li>
+
+            <li class="" th:if="${requisicao.hasPassagem()}">
+                <a href="#tab_2" data-toggle="tab" aria-expanded="false">
+                    Passagem
+                </a>
+            </li>
+
+            <li class="" th:if="${requisicao.hasTransporte()}">
+                <a href="#tab_3" data-toggle="tab" aria-expanded="false">
+                    Transporte
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1" th:if="${requisicao.hasDiaria()}">
+                <th:block th:include="fragments/devolucao/devolucao_diaria :: devolucao_diaria"></th:block>
+            </div>
+            <!-- /.tab-pane -->
+
+            <div class="tab-pane" id="tab_2" th:if="${requisicao.hasPassagem()}">
+
+            </div>
+            <!-- /.tab-pane -->
+
+            <div class="tab-pane" id="tab_3" th:if="${requisicao.hasTransporte()}">
+
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </div>
+</th:block>

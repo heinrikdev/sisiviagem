@@ -1,0 +1,131 @@
+<th:block th:fragment="list_panel_requisicao">
+    <div class="row" th:each="requisicao : ${pageRequisicao.content}">
+        <div class="col-lg-12">
+            <div class="panel" th:classappend="${requisicao.foiLancadoNoSCDP() ? 'panel-success' : requisicao.isDevolvida() ? 'panel-warning' : 'panel-primary'}">
+                <div class="panel-heading">
+                    <h4>
+                        <b th:text="'Requisição ' + ${requisicao.id} + ' - ' + ${{requisicao.dataFeitaRequisicao}} "></b>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Proposto: </b> <span th:text="${requisicao.proposto.nome}"></span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <b>Unidade/Departemaneto: </b> <span th:text="${requisicao.unidade.nome}"></span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <b>Lançado no SCDP em: </b>
+                                    <th:block th:if="${requisicao.foiLancadoNoSCDP()}">
+                                        <span th:text="${{requisicao.infoScdp.inseridoEm}}"></span>
+                                    </th:block>
+
+                                    <th:block th:if="${!requisicao.foiLancadoNoSCDP()}">
+                                        <span>---</span>
+                                    </th:block>
+                                    
+                                    <th:block th:if="${requisicao.foiLancadoNoSCDP()}">
+                                        <b>N° SCDP: </b>
+                                        <span th:text="${requisicao.infoScdp.numeroScdp}"></span>
+                                    </th:block>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Titulo: </b> <span th:text="${requisicao.titulo}"></span>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <b>Quantidade de solicitações: </b> <span th:text="${requisicao.quantidadeSolicitacoes}"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <p class="text-justify" style="white-space: pre-line;">
+                                        <b>Descrição: </b>
+                                        <th:block th:text="${requisicao.justificativa}"></th:block>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!--/* TABLE SOLICITACOES */-->
+                            <th:block th:include="fragments/entities/requisicao/listar_solicitacoes :: listar_solicitacoes"></th:block>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <th:block sec:authorize="hasAuthority('USER')" th:if="${currentRole.name() == 'USER'}">
+                            <div class="col-lg-12">
+                                <div class="btn-group">
+                                    <a th:if="${requisicao.isEditavel()}" th:href="@{/dashboard/proposto/requisicoes/editar/} + ${requisicao.id}" class="btn bg-purple btn-flat">
+                                        Editar
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+
+                                    <a th:href="@{/dashboard/proposto/requisicoes/detalhes/} + ${requisicao.id}" class="btn bg-info btn-flat">
+                                        Ver detalhes
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+
+                        <th:block sec:authorize="hasAuthority('AUDITOR')" th:if="${currentRole.name() == 'AUDITOR'}">
+                            <div class="col-lg-12">
+                                <div class="btn-group">
+                                    <a th:href="@{/dashboard/auditor/requisicoes/detalhes/} + ${requisicao.id}" class="btn bg-purple btn-flat">
+                                        Ver detalhes
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+
+                        <th:block sec:authorize="hasAuthority('DIARIA') || hasAuthority('PASSAGEM')" th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'PASSAGEM'}">
+                            <div class="col-lg-12">
+                                <div class="btn-group">
+                                    <a th:href="@{/dashboard/unidades/requisicoes/detalhes/} + ${requisicao.id}" class="btn bg-purple btn-flat">
+                                        Ver detalhes
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+
+                        <th:block sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                            <div class="col-lg-12">
+                                <div class="btn-group">
+                                    <a th:href="@{/dashboard/transporte/requisicoes/detalhes/} + ${requisicao.id}"
+                                        class="btn bg-purple btn-flat">
+                                        Ver detalhes
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

@@ -1,0 +1,94 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                        <h4 th:text="'Requisição ' + ${requisicao.id} + ' - ' + ${requisicao.proposto.nome}"></h4>
+
+                        <p class="text-justify">
+                            <b>Descrição: </b>
+                            <span th:text="${requisicao.justificativa}"></span>
+                        </p>
+                    </div>
+
+                    <form th:action="@{/dashboard/proposto/requisicao/prestacao_contas}" th:object="${anexo}" method="POST" enctype="multipart/form-data">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="hidden" name="anexo_id" th:value="${anexo.id}">
+
+                                    <div class="form-group">
+                                        <label for="anexo_nome">Nome do documento:</label>
+                                        <input type="text" class="form-control" th:name="anexo_nome" th:value="${anexo.nome}">
+                                        <p class="bg-danger text-danger error-message" th:if="${formAnexoValidation.fieldHasError('nome')}" th:text="${formAnexoValidation.getErrorMessage('nome')}"></p>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="nome">Arquivo:</label>
+                                        <input type="file" class="form-control-file" name="file" th:field="${anexo.file}">
+                                        <p class="bg-danger text-danger error-message" th:if="${formAnexoValidation.fieldHasError('file')}" th:text="${formAnexoValidation.getErrorMessage('file')}"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label for="descricao">Descição do documento:</label>
+                                        <textarea class="form-control" name="descricao" maxlength="1000" th:field="${anexo.descricao}"></textarea>
+                                        <p class="bg-danger text-danger error-message" th:if="${formAnexoValidation.fieldHasError('descricao')}" th:text="${formAnexoValidation.getErrorMessage('descricao')}"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-default btn-block" th:formaction="@{/dashboard/proposto/requisicao/prestacao_contas/add_anexo}">
+                                            <i class="fa fa-plus"></i>
+                                            Adicionar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--/* TABLE PRESTACAO CONTAS */-->
+                            <th:block th:include="fragments/entities/requisicao/listar_prestacao_contas :: listar_prestacao_contas"></th:block>
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-lg-2 pull-right">
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="scriptjs">
+        <script>
+            const criarDatatables = () => {
+                const tables = $('table');
+
+                for (var i = 0; i < tables.length; i++) {
+                    $(tables[i]).DataTable({
+                        "paging": false,
+                        "ordering": false,
+                        "info": false,
+                        "searching": false
+                    });
+                }
+            };
+            criarDatatables();
+        </script>
+    </th:block>
+</th:block>

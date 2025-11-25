@@ -1,0 +1,150 @@
+<th:block th:fragment="modal_adicionar_passageiro">
+    <div id="modal_adicionar_passageiro" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <form method="POST"
+                th:action="@{/dashboard/transporte/requisicoes/adicionar_passageiro/}   + ${requisicao.id}"
+                th:object="${abastecimento}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="abastecimentoTitle" class="modal-title">Adição de passageiro</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row" id="searchPassageiro">
+                            <div class="col-sm-12">
+                                <label for="passageiroNome">Pesquisar passageiro:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="searchPassageiro" id="nomePassageiro"
+                                        placeholder="Insira o nome completo...">
+
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="buscarPassageiros"
+                                            style="height:33.99px;">Buscar</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 hide" id="listaPassageiros">
+                                <table class="display" id="tableListaPassageiros" style="width:100%">
+                                    <thead>
+                                        <th>Nome</th>
+                                        <th class="text-right">CPF</th>
+                                        <th class="text-right">RG</th>
+                                        <th class="text-center">#</th>
+                                    </thead>
+
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-sm-12 text-center" id="btnNovoPassageiro"
+                                style="margin-top: 15px;margin-bottom: 15;">
+                                <button type="button" class="btn btn-warning btn-flat btn-sm">
+                                    Cadastrar novo
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="hide" id="formPassageiro">
+                            <div class="row">
+                                <input type="hidden" th:field="${requisicaoPassageiro.passageiro.id}">
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="passageiroNome">Nome:</label>
+                                        <input type="text" class="form-control"
+                                            th:field="${requisicaoPassageiro.passageiro.nome}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="Identificacao">CPF:</label>
+                                        <input type="text" class="form-control" id="Identificacao" name="Identificacao"
+                                            th:field="${requisicaoPassageiro.passageiro.Identificacao}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="rg">RG:</label>
+                                        <input type="text" class="form-control" name="rg"
+                                            th:field="${requisicaoPassageiro.passageiro.rg}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="orgao">Orgão Expedidor:</label>
+                                        <input type="text" class="form-control" name="orgao"
+                                            th:field="${requisicaoPassageiro.passageiro.orgao}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="telefone">Telefone:</label>
+                                        <input type="text" class="form-control" name="telefone"
+                                            th:field="${requisicaoPassageiro.passageiro.telefone}" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="motivo">Motivo:</label>
+                                        <input type="text" class="form-control" name="motivo"
+                                            th:field="${requisicaoPassageiro.motivo}" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tipoSanguineo">Tipo sanguineo:</label>
+                                        <select class="form-control" name="tipoSanguineo"
+                                            th:field="${requisicaoPassageiro.passageiro.tipoSanguineo}" required>
+                                            <option value="">Selecione</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                            <option value="Não Informado">Não Informado</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tipoSanguineo">Trajeto:</label>
+                                        <select class="form-control" name="infoTrajetoPassageiro"
+                                            th:field="${requisicaoPassageiro.infoTrajetoPassageiro}" required>
+                                            <option value="">Selecione</option>
+                                            <option value="0">Ida</option>
+                                            <option value="1">Volta</option>
+                                            <option value="2">Ida e Volta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>

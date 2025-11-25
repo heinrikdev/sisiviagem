@@ -1,0 +1,216 @@
+<th:block th:fragment="trecho_inputs">
+    <div class="row">
+        <input type="hidden" th:name="@{'trecho_id'}" th:value="${trecho.id}">
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="tipoTransporte">Transporte:</label>
+
+                <select id="tipoTransporte" class="form-control" name="tipoTransporte" th:field="${trecho.tipoTransporte}" th:attr="data-veiculo-proprio=${requisicaoPossuiVeiculoProprio}">
+                    <option th:value="NULL" selected>Selecione</option>
+                    <option th:each="t : ${transportes}" th:value="${t}" th:text="${t}" th:checked="${t.toString().equals(trecho.tipoTransporte)}"></option>
+                </select>
+
+                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('tipoTransporte')}" th:text="${formTrechoValidation.getErrorMessage('tipoTransporte')}"></p>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="tipoTrecho">Tipo de trecho:</label>
+                <select name="tipoTrecho" th:field="${trecho.tipoTrecho}" id="tipoTrecho" class="form-control">
+                    <option value="">Selecione</option>
+                    <option th:value="${'Ida'}">Trecho de ida</option>
+                    <option th:value="${'Volta'}">Trecho de volta</option>
+                    <option th:value="${'Ida e Volta'}">Trecho de ida e volta</option>
+                </select>
+                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('tipoTrecho')}" th:text="${formTrechoValidation.getErrorMessage('tipoTrecho')}"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAÍDA -->
+    <div class="row">
+        <div class="col-lg-12">
+            <fieldset>
+                <legend style="font-size: 18px; color:dodgerblue; font-weight: bold;">Origem</legend>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="form-group">
+                            <!-- <label for="saidaOrigem">Ponto de partida:</label> -->
+                            <br>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" th:value="1" name="isOrigemDoBrasil" th:field="${trecho.isOrigemDoBrasil}">
+                                    Trecho Brasil
+                                </label>
+                            </div>
+
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" th:value="0" name="isOrigemDoBrasil" th:field="${trecho.isOrigemDoBrasil}">
+                                    Trecho Exterior
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <th:block th:if="${trecho.isOrigemDoBrasil}">
+                        <div class="col-lg-6">
+                            <div class="form-group" id="partidaField">
+                                <label for="estadoOrigem" id="labelEstadoPartida">Estado:</label>
+
+                                <select id="estadoOrigem" class="form-control" th:field="${trecho.estadoOrigem}">
+                                    <option th:value="NULL">Selecione</option>
+                                    <option th:each="e : ${estados}" th:value="${e.uf}" th:text="${e.nome + ' - ' + e.uf}"></option>
+                                <select>
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('estadoOrigem')}" th:text="${formTrechoValidation.getErrorMessage('estadoOrigem')}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group" id="partidaCidadeField">
+                                <label for="cidadeOrigem" id="labelCidadePartida">Cidade:</label>
+
+                                <select id="cidadeOrigem" class="form-control" th:field="${trecho.cidadeOrigem}">
+                                    <option th:value="NULL">Selecione</option>
+                                    <option th:each="m : ${municipiosOrigem}" th:value="${m.nome}" th:text="${m.nome}" th:checked="${trecho.cidadeOrigem.equals(m.nome)}"></option>
+                                </select>
+
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('cidadeOrigem')}" th:text="${formTrechoValidation.getErrorMessage('cidadeOrigem')}"></p>
+                            </div>
+                        </div>
+                    </th:block>
+
+                    <th:block th:if="${!trecho.isOrigemDoBrasil}">
+                        <div class="col-lg-6" th:if="${!trecho.isDestinoDoBrasil}">
+                            <div class="form-group" id="partidaField">
+                                <label for="estadoOrigem" id="labelEstadoPartida">País: </label>
+                                <input id="estadoOrigem" class="form-control" type="text" th:field="${trecho.estadoOrigem}">
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('estadoOrigem')}" th:text="${formTrechoValidation.getErrorMessage('estadoOrigem')}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group" id="partidaCidadeField">
+                                <label for="cidadeOrigem" id="labelCidadePartida">Cidade:</label>
+                                <input id="cidadeOrigem" class="form-control" type="text" th:field="${trecho.cidadeOrigem}">
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('cidadeOrigem')}" th:text="${formTrechoValidation.getErrorMessage('cidadeOrigem')}"></p>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="dataSaida">Data:</label>
+                            <input type="date" class="form-control" id="dataSaida" name="dataSaida" th:value="${#temporals.format(trecho.dataSaida,'yyyy-MM-dd')}">
+                            <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('dataSaida')}" th:text="${formTrechoValidation.getErrorMessage('dataSaida')}"></p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="horaSaida">Hora:</label>
+                            <input type="time" class="form-control" th:value="${trecho.horaSaida}" th:field="${trecho.horaSaida}">
+                            <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('horaSaida')}" th:text="${formTrechoValidation.getErrorMessage('horaSaida')}"></p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <!-- DESTINO -->
+    <div class="row">
+        <div class="col-lg-12">
+            <fieldset>
+                <legend style="font-size: 18px; color:dodgerblue; font-weight: bold;">Destino</legend>
+
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="form-group">
+                            <!-- <label for="chegadaDestino">Ponto de partida:</label> -->
+                            <br>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" th:value="1" name="isDestinoDoBrasil" th:field="${trecho.isDestinoDoBrasil}">
+                                    Trecho Brasil
+                                </label>
+                            </div>
+
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" th:value="0" name="isDestinoDoBrasil" th:field="${trecho.isDestinoDoBrasil}">
+                                    Trecho Exterior
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <th:block th:if="${trecho.isDestinoDoBrasil}">
+                        <div class="col-lg-6">
+                            <div class="form-group" id="destinoField">
+                                <label for="estadoDestino" id="labelEstadoDestino">Estado:</label>
+
+                                <select id="estadoDestino" class="form-control" th:field="${trecho.estadoDestino}">
+                                    <option th:value="NULL">Selecione</option>
+                                    <option th:each="e : ${estados}" th:value="${e.uf}" th:text="${e.nome + ' - ' + e.uf}"></option>
+                                </select>
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('estadoDestino')}" th:text="${formTrechoValidation.getErrorMessage('estadoDestino')}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group" id="destinoCidadeField">
+                                <label for="cidadeDestino">Cidade:</label>
+                                <select id="cidadeDestino" class="form-control" th:field="${trecho.cidadeDestino}">
+                                    <option th:value="NULL">Selecione</option>
+                                    <option th:each="m : ${municipiosDestino}" th:value="${m.nome}" th:text="${m.nome}" th:checked="${trecho.cidadeDestino.equals(m.nome)}"></option>
+                                </select>
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('cidadeDestino')}" th:text="${formTrechoValidation.getErrorMessage('cidadeDestino')}"></p>
+                            </div>
+                        </div>
+                    </th:block>
+
+                    <th:block th:if="${!trecho.isDestinoDoBrasil}">
+                        <div class="col-lg-6">
+                            <div class="form-group" id="destinoField">
+                                <label for="estadoDestino" id="labelEstadoDestino">País: </label>
+                                <input id="estadoDestino" class="form-control" type="text" th:field="${trecho.estadoDestino}">
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('estadoDestino')}" th:text="${formTrechoValidation.getErrorMessage('estadoDestino')}"></p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group" id="destinoCidadeField">
+                                <label for="cidadeDestino">Cidade:</label>
+                                <input id="cidadeDestino" class="form-control" type="text" th:field="${trecho.cidadeDestino}">
+                                <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('cidadeDestino')}" th:text="${formTrechoValidation.getErrorMessage('cidadeDestino')}"></p>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="dataChegada">Data:</label>
+                            <input type="date" class="form-control" id="dataChegada" name="dataChegada" th:value="${#temporals.format(trecho.dataChegada, 'yyyy-MM-dd')}">
+                            <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('dataChegada')}" th:text="${formTrechoValidation.getErrorMessage('dataChegada')}"></p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="horaChegada">Hora:</label>
+                            <input type="time" class="form-control" th:value="${trecho.horaChegada}" th:field="${trecho.horaChegada}">
+                            <p class="bg-danger text-danger error-message" th:if="${formTrechoValidation.fieldHasError('horaChegada')}" th:text="${formTrechoValidation.getErrorMessage('horaChegada')}"></p>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</th:block>

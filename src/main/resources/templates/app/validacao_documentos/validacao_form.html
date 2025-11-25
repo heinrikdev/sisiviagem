@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--/* Tell the browser to be responsive to screen width */-->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!--/* CSRF Header e Token usados nas requisições Ajax */-->
+    <meta th:name="_csrf" th:content="${_csrf.token}" />
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}" />
+
+    <title>Sistema de solicitação de viagem</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+
+    <!--/* Bootstrap 3.3.7 */-->
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <!--/* Theme style */-->
+    <link rel="stylesheet" href="/assets/adminlte/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <!--/* HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries */-->
+    <!--/* WARNING: Respond.js doesn't work if you view the page via file:// */-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--/* Material Icons */-->
+    <link rel="stylesheet" href="/assets/material-icons/material-icons.css">
+
+    <!--/* Font Awesome */-->
+    <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
+    <!--/* Ionicons */-->
+    <link rel="stylesheet" href="/assets/Ionicons/css/ionicons.min.css">
+
+    <!--/* Google Font */-->
+    <link rel="stylesheet" href="/assets/google-fonts/fonts/fonts.css">
+
+    <link href="/css/login.css" rel="stylesheet">
+</head>
+
+<body class="hold-transition login-page">
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            <p>
+                <img src="https://files.cercomp.ufg.br/weby/up/393/o/PNG_HORIZONTAL_COM_DESCRITOR.png" alt="" width="300" height="180">
+            </p>
+        </div>
+
+        <div class="login-box-body">
+            <div class="login-logo text-center">
+                <h1 style="text-align: center">
+                    <i class="fa fa-car"></i>
+                    <b>Sis</b>Viagem
+                </h1>
+                <!--/* <h3>Solicitação de Viagens</h3> */-->
+                <hr style="margin-top: 0px; margin-bottom: 0px;" />
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h4 class="text-center">Validação de documento gerado pelo sistema</h4>
+                    <hr style="margin-top: 0px; margin-bottom: 0px;" />
+                </div>
+            </div>
+
+            <div th:if="${error} != null" class="form-group">
+                <h3 style="color: red" th:text="${error}"></h3>
+            </div>
+
+            <form class="form-signin" th:action="@{/documentos/validar}" method="GET">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Identificador:</label>
+                                <input type="text" class="form-control" name="identificador"
+                                    required="required"></input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Data da Emissão</label>
+                                <input type="date" class="form-control" name="dataDocumento"
+                                    required="required"></input>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label>Código de Verificação:</label>
+                                <input type="text" class="form-control" name="codigoVerificacao"
+                                    required="required"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <input class="btn btn-primary" type="submit" value="Validar Documento" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--/* jQuery 3 */-->
+    <script src="/assets/jquery/jquery.min.js"></script>
+
+    <script>
+        $('#show').on('change', function () {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            if (valueSelected == 1) {
+                $("#text_area").show();
+            } else {
+                $("#text_area").hide();
+            }
+        });
+    </script>
+</body>
+
+</html>

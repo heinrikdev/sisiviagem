@@ -1,0 +1,127 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-lg-4 text-left">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVeiculoFiltrar">
+                                        <b>Filtrar </b>
+                                        <i class="fa fa-filter"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-center">
+                                <div class="form-group">
+                                    <p class="text-center" th:text="'Exibindo ' + ${pageVeiculo.pageable.pageNumber + 1} + ' de ' + ${pageVeiculo.totalPages} + ' página(s).'"></p>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 text-right">
+                                <div class="form-group">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a role="button" th:href="${paginaAnterior}" th:classappend="${pageVeiculo.hasPrevious() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página anterior
+                                        </a>
+                                        <a role="button" th:href="${proximaPagina}" th:classappend="${pageVeiculo.hasNext() ? '' : 'disabled'}"
+                                            style="color:aliceblue" class="btn btn-primary">
+                                            Página seguinte
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table table-hover display nowrap table-striped" style="width:100%">
+                                    <thead>
+                                        <th>Carro</th>
+                                        <th>Placa</th>
+                                        <th>Combustível</th>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Ano</th>
+                                        <th>Chassis</th>
+                                        <th>Renavan</th>
+                                        <th class="text-center">Condicionado?</th>
+                                        <th class="text-center">Direção<br/>Hidráulica?</th>
+                                        <th>Pneus</th>
+                                        <th class="text-center">Capacidade</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Ativar/Desativar</th>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr th:each="veiculo : ${pageVeiculo.content}">
+                                            <td th:text="${veiculo.carro}"></td>
+                                            <td th:text="${veiculo.placa}"></td>
+                                            <td th:text="${veiculo.combustivel}"></td>
+                                            <td th:text="${veiculo.marca}"></td>
+                                            <td th:text="${veiculo.modelo}"></td>
+                                            <td th:text="${veiculo.ano}"></td>
+                                            <td th:text="${veiculo.chassis}"></td>
+                                            <td th:text="${veiculo.renavan}"></td>
+                                            <td class="text-center">
+                                                <i class="fa fa-fw" th:classappend="${veiculo.hasArcondicionado() ? 'fa-check' : 'fa-close'}"></i>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <i class="fa fa-fw" th:classappend="${veiculo.hasDirecaoHidraulica() ? 'fa-check' : 'fa-close'}"></i>
+                                            </td>
+                                            <td th:text="${veiculo.pneus}"></td>
+                                            <td th:text="${veiculo.capacidade != null ? veiculo.capacidade : 'Não informado' }" class="text-center"></td>
+
+                                            <td class="text-center">
+                                                <a class="btn btn-secondary btn-flat" th:href="@{/dashboard/transporte/veiculo/} + ${veiculo.id}">
+                                                    <i class="fa fa-pencil-square-o fa-fw"></i>
+                                                </a>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <a class="btn btn-secondary btn-flat" th:href="@{/dashboard/transporte/veiculo/alternar_status/} + ${veiculo.id} + '/' + ${veiculo.isAtivo}">
+                                                    <i class="fa fa-fw" th:classappend="${veiculo.isAtivo ? 'fa-check' : 'fa-close'}"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <th:block th:include="fragments/modal_filtros/transporte/veiculo/veiculo_modal_filtro.html :: veiculo_modal_filtro"></th:block>
+    </th:block>
+    <th:block th:fragment="scriptjs">
+        <script>
+            $(document).ready(() => {
+                const tables = $('table');
+
+                for (var i = 0; i < tables.length; i++) {
+                    $(tables[i]).DataTable({
+                        searching: true,
+                    });
+                }
+            });
+        </script>
+        <script>
+            $(document).ready(() => {
+                $("#tipoFiltro").change((event) => {
+
+                    let filtroSelecionado = $(event.target).val();
+
+                    $('.filtro_form').addClass('hide');
+                    $(filtroSelecionado).removeClass('hide');
+                });
+            });
+        </script>
+    </th:block>
+</th:block>

@@ -1,0 +1,102 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="panel shadow">
+            <form id="formUsuario" th:action="@{/dashboard/admin/usuario/formulario}" th:object="${usuario}" method="POST">
+                <div class="panel-body">
+                    <div class="row">
+                        <input type="hidden" name="id" id="usuario_id" th:field="*{id}" th:value="${usuario.id}">
+                        <input type="hidden" name="id" th:field="*{pessoa.id}" th:value="*{pessoa.id}">
+
+                        <div class="col-lg-4 col-lg-offset-2">
+                            <div class="form-group">
+                                <label for="loginUnico">Login Único:</label>
+                                <input type="text" name="loginUnico" id="loginUnico" class="form-control" th:field="*{loginUnico}"
+                                    placeholder="Login único" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="pessoa.email">E-mail:</label>
+                                <input type="text" name="pessoa.email" id="pessoa.email" class="form-control" th:field="*{pessoa.email}"
+                                    placeholder="E-mail" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-lg-offset-2">
+                            <div class="form-group">
+                                <label for="nome">Nome completo:</label>
+                                <input type="text" name="nome" id="nome" class="form-control" th:field="*{pessoa.nome}"
+                                    placeholder="Nome completo" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="dataNascimento">Data de Nascimento:</label>
+                                <input type="date" class="form-control" name="pessoa.dataNascimento" id="pessoa.dataNascimento" th:value="${#temporals.format(usuario.pessoa.dataNascimento,'yyyy-MM-dd')}" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-lg-offset-2">
+                            <div class="form-group">
+                                <label for="cpf">CPF:</label>
+                                <input type="text" class="form-control" name="cpf" id="cpf" th:field="*{pessoa.cpf}"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="siap">SIAPE:</label>
+                                <input type="text" class="form-control" name="siap" id="siap" th:field="*{pessoa.siap}"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-lg-offset-2">
+                            <div class="form-group">
+                                <label for="unidade">Vínculo Unidade Acadêmica</label>
+                                <select class="form-control" th:field="*{unidade}" name="unidade" id="unidade" required>
+                                    <option th:value="NULL" selected>Selecione</option>
+                                    <option th:each="u : ${unidades}" th:value="${u.id}" th:text="${u.nome}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="enabled">Status:</label>
+                                <select class="form-control" th:field="*{enabled}" required>
+                                    <option th:value="NULL" selected>Selecione</option>
+                                    <option value="true">Ativo</option>
+                                    <option value="false">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-1 col-lg-offset-2">
+                            <div class="form-group">
+                                <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <button id="formUsuarioBtnSubmit" type="button" role="button" class="btn btn-primary btn-block btn-flat"><b>Salvar</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </th:block>
+    <th:block th:fragment="scriptjs">
+        <script src="/js/usuario_form.js"></script>
+    </th:block>
+</th:block>

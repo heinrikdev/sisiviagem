@@ -1,0 +1,80 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class=" panel shadow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-lg-4 text-left">
+                        <form th:action="@{/dashboard/admin/unidade}" method="GET">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Busca por nome">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-4 text-center">
+                        <div class="form-group">
+                            <p class="text-center" th:text="'Exibindo ' + ${pageUnidades.pageable.pageNumber + 1} + ' de ' + ${pageUnidades.totalPages} + ' página(s).'"></p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 text-right">
+                        <div class="form-group">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a role="button" th:href="${paginaAnterior}" th:classappend="${pageUnidades.hasPrevious() ? '' : 'disabled'}" style="color:aliceblue" class="btn btn-primary">
+                                    Página anterior
+                                </a>
+                                <a role="button" th:href="${proximaPagina}" th:classappend="${pageUnidades.hasNext() ? '' : 'disabled'}"  style="color:aliceblue" class="btn btn-primary">
+                                    Página seguinte
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table id="unidadesTable" class="table table-hover display nowrap table-striped" style="width:100%">
+                            <thead>
+                                <th>Nome</th>
+                                <th>Tipo</th>
+                                <th class="text-center">#</th>
+                            </thead>
+
+                            <tbody>
+                                <tr th:each="unidade : ${pageUnidades.content}">
+                                    <td th:text="${unidade.nome}"></td>
+                                    <td th:text="${unidade.unidadeDepartamento}"></td>
+                                    <td class="text-center">
+                                        <a class="btn btn-secondary" th:href="@{/dashboard/admin/unidade/editar/} + ${unidade.id}" role="button">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-secondary" role="button">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:fragment="scriptjs">
+        <script>
+            $(document).ready(function () {
+                $('#unidadesTable').DataTable();
+            });
+        </script>
+    </th:block>
+</th:block>

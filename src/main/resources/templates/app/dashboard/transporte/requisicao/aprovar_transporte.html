@@ -1,0 +1,149 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                        <h4 th:text="${'Requisição ' + requisicao.id + ' - ' + requisicao.proposto.nome}"></h4>
+
+                        <p class="text-justify">
+                            <b>Data da viagem:</b>
+                            <span th:text="${{requisicao.dataRequisicao}}"></span>
+
+                            <br/>
+
+                            <b>Descrição: </b>
+                            <span th:text="${requisicao.justificativa}"></span>
+                        </p>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <form th:action="'/dashboard/requisicoes/avaliar/' + ${requisicao.id} + '/aprovar/viagem_filtrada'" method="get">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="from">Data inicial:</label>
+                                        <input type="date" class="form-control" th:value="${from}" name="from" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label for="to">Data Final:</label>
+                                        <input type="date" class="form-control" th:value="${to}" name="to" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-2" style="padding-top:25px;">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">
+                                            Filtrar
+                                            <i class="fa fa-filter"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                                
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4 class="text-center"><b class="text-success">VIAGENS AGENDADAS</b></h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table class="table table-hover" style="width:100%">
+                                    <thead>
+                                        <th>N°</th>
+                                        <th>Título</th>
+                                        <th class="text-center">Data</th>
+                                        <th class="text-center">Hora da Partida</th>
+                                        <th></th>
+                                    </thead>
+
+                                    <tbody>
+                                        <th:block th:each="viagem : ${viagens}">
+                                            <tr>
+                                                <td th:text="${'VIAGEM ' + viagem.id}"></td>
+                                                <td th:text="${viagem.titulo}"></td>
+                                                <td class="text-center" th:text="${{viagem.data}}"></td>
+                                                <td class="text-center" th:text="${viagem.startHora}"></td>
+                                                <td class="text-right">
+                                                    <a class="btn-descricao-viagem btn btn-xs btn-primary btn-flat" th:attr="data-id=${viagem.id},data-titulo=${viagem.titulo},data-descricao=${viagem.descricao},data-requisicao-id=${requisicao.id},data-requisicao-proposto=${requisicao.id}">
+                                                        Detalhes
+                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/*  Modal  */-->
+        <div id="viagemDetalhes" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!--/*  Modal content */-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="viagemDetalhesTitulo"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#requisicao">Justificativa</a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#viagem">Viagem</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div id="requisicao" class="tab-pane fade in active">
+                                <b>Data da viagem:</b>
+                                <span th:text="${{requisicao.dataRequisicao}}"></span>
+                                
+                                <p style="white-space: pre-line; margin-top: 10px;" id="requisicaoJustificativo"></p>
+                            </div>
+
+                            <div id="viagem" class="tab-pane fade">
+                                <h4>
+                                    <b id="viagemTitulo"></b>
+                                </h4>
+                                <p style="white-space: pre-line; margin-top: 10px;" id="viagemDescricao"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a type="button" id="aprovarRequisicao" class="btn btn-success">Aprovar</a>
+                        <a type="button" class="btn btn-default" data-dismiss="modal">Fechar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:fragment="scriptjs">
+        <script th:inline="javascript">
+
+            var requisicao = {
+                id:             /*[[${requisicao.id}]]*/            undefined,
+                justificativa:  /*[[${requisicao.justificativa}]]*/ undefined,
+                proposto:       /*[[${requisicao.proposto.nome}]]*/ undefined
+            };
+
+            var viagens = /*[[${viagens}]]*/[];
+        </script>
+        <script src="/js/aprovar_transporte.js"></script>
+    </th:block>
+</th:block>

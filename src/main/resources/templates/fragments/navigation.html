@@ -1,0 +1,546 @@
+<th:block th:fragment="navigation">
+        <!--/* Navigation */-->
+        <header class="main-header">
+            <!--/* Logo */-->
+            <a href="/dashboard" class="logo">
+                <!--/* mini logo for sidebar mini 50x50 pixels */-->
+                <span class="logo-mini">
+                    <span class="fa fa-car"></span>
+                </span>
+                <!--/* logo for regular state and mobile devices */-->
+                <span class="logo-lg">
+                    <span class="fa fa-car"></span>
+                    <b> Sis</b>Viagem
+                </span>
+            </a>
+            <!--/* Header Navbar: style can be found in header.less */-->
+            <nav class="navbar navbar-static-top">
+                <!--/* Sidebar toggle button*/-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!--/* Control Sidebar Toggle Button */-->
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#logoutModal">
+                                Sair <i class="fa fa-sign-out"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    </th:block>
+
+    <th:block th:fragment="sidebar">
+
+        <aside class="main-sidebar">
+            <!--/* sidebar: style can be found in sidebar.less */-->
+            <section class="sidebar">
+                <!--/* Sidebar user panel */-->
+
+
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img class="img-circle" alt="User Image" src="/images/user_img.svg" />
+                    </div>
+
+
+                    <div class="pull-left info">
+
+
+                        <p th:text="'@' + ${userName}"></p>
+                        <a href="#">
+                            <i class="fa fa-circle text-success"></i>
+                            online
+                        </a>
+                    </div>
+
+                </div>
+
+                                        <!-- CSS para o seletor customizado -->
+                        <style>
+                            .custom-role-select {
+                                position: relative;
+                                width: 100%;
+                                margin-bottom: 10px;
+                                padding-left: 10px;
+                                padding-right: 10px;
+                            }
+
+                            .role-select-button {
+                                background: linear-gradient(135deg, #3c8dbc, #367fa9);
+                                color: white;
+                                border: none;
+                                border-radius: 4px;
+                                padding: 8px 12px;
+                                width: 100%;
+                                text-align: left;
+                                cursor: pointer;
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                font-size: 12px;
+                                font-weight: 500;
+                                transition: all 0.2s ease;
+                                box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+                            }
+
+                            .role-select-button:hover {
+                                background: linear-gradient(135deg, #367fa9, #2e6da4);
+                                transform: translateY(-1px);
+                                box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+                            }
+
+                            .role-select-button .current-role {
+                                display: flex;
+                                align-items: center;
+                                gap: 6px;
+                            }
+
+                            .role-select-button .arrow {
+                                transition: transform 0.2s ease;
+                            }
+
+                            .custom-role-select.open .role-select-button .arrow {
+                                transform: rotate(180deg);
+                            }
+
+                            .role-options-list {
+                                position: absolute;
+                                top: 100%;
+                                left: 0;
+                                right: 0;
+                                background: white;
+                                border: 1px solid #d2d6de;
+                                border-radius: 4px;
+                                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                                z-index: 1050;
+                                max-height: 200px;
+                                overflow-y: auto;
+                                display: none;
+                                margin-left: 10px;
+                                margin-right: 10px;
+
+                            }
+
+                            .custom-role-select.open .role-options-list {
+                                display: block;
+                            }
+
+                            .role-option-item {
+                                padding: 8px 12px;
+                                cursor: pointer;
+                                display: flex;
+                                align-items: center;
+                                gap: 6px;
+                                font-size: 12px;
+                                color: #444;
+                                transition: background-color 0.2s ease;
+                                border-bottom: 1px solid #f4f4f4;
+                            }
+
+                            .role-option-item:last-child {
+                                border-bottom: none;
+                            }
+
+                            .role-option-item:hover {
+                                background-color: #f5f5f5;
+                                color: #3c8dbc;
+                            }
+
+                            .role-option-item.selected {
+                                background-color: #e8f4fd;
+                                color: #3c8dbc;
+                                font-weight: 500;
+                            }
+
+                            .role-icon {
+                                width: 12px;
+                                font-size: 11px;
+                                text-align: center;
+                            }
+                        </style>
+
+                        <!-- Formulário com seletor customizado -->
+                        <form th:action="@{/dashboard/meu-perfil/formulario/atualizarRole}" method="post" id="roleForm">
+                            <input type="hidden" name="role" id="selectedRole" th:value="${currentRole}" />
+
+                            <div class="custom-role-select" id="customRoleSelect">
+                                <button type="button" class="role-select-button" id="roleSelectButton">
+                                    <span class="current-role">
+                                        <i class="fa role-icon"
+                                           th:classappend="${currentRole.name() == 'USER'} ? 'fa-user' :
+                                                          (${currentRole.name() == 'ADMIN'} ? 'fa-cog' :
+                                                          (${currentRole.name() == 'TRANSPORTE'} ? 'fa-truck' :
+                                                          (${currentRole.name() == 'MOTORISTA'} ? 'fa-car' :
+                                                          (${currentRole.name() == 'DIARIA'} ? 'fa-money' :
+                                                          (${currentRole.name() == 'AUDITOR'} ? 'fa-search' : 'fa-user')))))"></i>
+                                        <span th:text="${currentRole}"></span>
+                                    </span>
+                                    <i class="fa fa-chevron-down arrow"></i>
+                                </button>
+
+                                <div class="role-options-list" id="roleOptionsList">
+                                    <div th:each="rolee : ${roles}"
+                                         th:class="${rolee == currentRole} ? 'role-option-item selected' : 'role-option-item'"
+                                         th:data-role="${rolee}">
+                                        <i class="fa role-icon"
+                                           th:classappend="${rolee.name() == 'USER'} ? 'fa-user' :
+                                                          (${rolee.name() == 'ADMIN'} ? 'fa-cog' :
+                                                          (${rolee.name() == 'TRANSPORTE'} ? 'fa-truck' :
+                                                          (${rolee.name() == 'MOTORISTA'} ? 'fa-car' :
+                                                          (${rolee.name() == 'DIARIA'} ? 'fa-money' :
+                                                          (${rolee.name() == 'AUDITOR'} ? 'fa-search' : 'fa-user')))))"></i>
+                                        <span th:text="${rolee}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Script simplificado -->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const customSelect = document.getElementById('customRoleSelect');
+                                const button = document.getElementById('roleSelectButton');
+                                const optionsList = document.getElementById('roleOptionsList');
+                                const options = optionsList.querySelectorAll('.role-option-item');
+                                const form = document.getElementById('roleForm');
+                                const hiddenInput = document.getElementById('selectedRole');
+
+                                // Toggle dropdown
+                                button.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    customSelect.classList.toggle('open');
+                                });
+
+                                // Selecionar opção
+                                options.forEach(function(option) {
+                                    option.addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+
+                                        const selectedRole = this.getAttribute('data-role');
+                                        const selectedIcon = this.querySelector('i').className;
+                                        const selectedText = this.querySelector('span').textContent;
+
+                                        // Atualizar botão
+                                        button.innerHTML =
+                                            '<span class="current-role">' +
+                                                '<i class="' + selectedIcon + '"></i>' +
+                                                '<span>' + selectedText + '</span>' +
+                                            '</span>' +
+                                            '<i class="fa fa-chevron-down arrow"></i>';
+
+                                        // Atualizar seleção visual
+                                        options.forEach(function(opt) {
+                                            opt.classList.remove('selected');
+                                        });
+                                        this.classList.add('selected');
+
+                                        // Atualizar campo hidden
+                                        hiddenInput.value = selectedRole;
+
+                                        // Fechar dropdown
+                                        customSelect.classList.remove('open');
+
+                                        // Submeter formulário
+                                        form.submit();
+                                    });
+                                });
+
+                                // Fechar ao clicar fora
+                                document.addEventListener('click', function(e) {
+                                    if (!customSelect.contains(e.target)) {
+                                        customSelect.classList.remove('open');
+                                    }
+                                });
+                            });
+                        </script>
+
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header text-center">
+                        NAVEGAÇÃO PRINCIPAL
+                    </li>
+
+                    <li>
+                        <a href="/dashboard">
+                            <i class="fa fa-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/dashboard/meu-perfil">
+                            <i class="fa fa-user "></i>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <!--/* HAS AUTHORITY USER */-->
+                    <th:block sec:authorize="hasAuthority('USER')" th:if="${isCadastroCompleto and currentRole.name() == 'USER'}">
+                        <li>
+                            <a href="/dashboard/proposto/requisicoes/nova_requisicao">
+                                <i class="fa fa-plus "></i>
+                                <span>Nova requisição</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/dashboard/proposto/requisicoes">
+                                <i class="fa fa-users "></i>
+                                <span>Minhas requisições</span>
+                            </a>
+                        </li>
+                    </th:block>
+
+                    <!--/* HAS AUTHORITY TRANSPORTE */-->
+                    <th:block sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                        <li>
+                            <a href="/dashboard/viagens/agenda" target="_blank">
+                                <i class="fa fa-calendar"></i>
+                                <span>Agenda</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/dashboard/transporte/requisicoes">
+                                <i class="fa fa-eye "></i>
+                                <span>Ver requisições</span>
+                            </a>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+
+                                <span>Motorista</span>
+
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+
+                                <li>
+                                    <a href="/dashboard/transporte/motorista">
+                                        <i class="fa fa-plus "></i>
+                                        <span>Cadastrar</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/dashboard/transporte/motorista/listar">
+                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <span>Listar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+
+                            <a href="#">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+
+                                <span>Viagem</span>
+
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+
+                                <li>
+                                    <a href="/dashboard/transporte/viagem/nova">
+                                        <i class="fa fa-plus "></i>
+                                        <span>Cadastrar</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/dashboard/transporte/viagem/listar">
+                                        <i class="fa fa-eye "></i>
+                                        <span>Ver Viagens</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+
+                            <a href="#">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+
+                                <span>Veículo</span>
+
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a href="/dashboard/transporte/veiculo">
+                                        <i class="fa fa-plus"></i>
+                                        <span>Cadastrar</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/dashboard/transporte/veiculo/listar">
+                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <span>Listar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </th:block>
+
+
+                    <!--/* HAS AUTHORITY ADMIN */-->
+                    <th:block sec:authorize="hasAuthority('ADMIN')" th:if="${currentRole.name() == 'ADMIN'}">
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-users"></i>
+                                <span>Usuários</span>
+
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a href="/dashboard/admin/usuario/cadastrar">
+                                        <i class="fa fa-plus "></i>
+                                        <span>Cadastrar</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/dashboard/admin/usuario">
+                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <span>Listar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+
+                            <a href="#">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <span>Unidades/Departamentos</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+
+                                <li>
+                                    <a href="/dashboard/admin/unidade/cadastrar">
+                                        <i class="fa fa-plus "></i>
+                                        <span>Cadastrar</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/dashboard/admin/unidade">
+                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <span>Listar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+
+                            <a href="#">
+                                <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                <span>Proponente</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a href="/dashboard/admin/proponente/cadastrar">
+                                        <i class="fa fa-plus "></i>
+                                        <span>Cadastrar</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/dashboard/admin/proponente">
+                                        <i class="fa fa-list" aria-hidden="true"></i>
+                                        <span>Listar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </th:block>
+
+
+                    <th:block sec:authorize="hasAuthority('DIARIA')" th:if="${currentRole.name() == 'DIARIA'}">
+                        <li>
+                            <a href="/dashboard/diaria_passagens/requisicoes">
+                                <i class="fa fa-eye "></i>
+                                <span>Ver requisições</span>
+                            </a>
+                        </li>
+                    </th:block>
+
+                    <th:block sec:authorize="hasAuthority('AUDITOR')" th:if="${currentRole.name() == 'AUDITOR'}">
+                        <li>
+                            <a href="/dashboard/auditor/requisicoes">
+                                <i class="fa fa-eye "></i>
+                                <span>Ver requisições</span>
+                            </a>
+                        </li>
+                    </th:block>
+
+                    <!--/* HAS AUTHORITY MOTORISTA */-->
+                    <th:block sec:authorize="hasAuthority('MOTORISTA')" th:if="${currentRole.name() == 'MOTORISTA'}">
+                        <li class="treeview">
+
+                            <a href="#">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                                <span>Viagem</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li>
+                                    <a href="/dashboard/motorista/viagem">
+                                        <i class="fa fa-eye "></i>
+                                        <span>Minhas Viagens</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </th:block>
+
+                    <!--/* SAIR */-->
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fa fa-sign-out"></i>
+                            <span> Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <!--/* /.sidebar */-->
+        </aside>
+    </th:block>

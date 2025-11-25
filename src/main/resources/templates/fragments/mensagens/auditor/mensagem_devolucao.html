@@ -1,0 +1,58 @@
+<th:block th:fragment="mensagem_devolucao">
+    <div class="box box-primary direct-chat direct-chat-primary">
+
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                <th:block th:if="${isDiaria}">
+                    Diária
+                </th:block>
+
+                <th:block th:if="${!isDiaria}">
+                    Passagem
+                </th:block>
+
+                <i class="fa fa-envelope"></i>
+            </h3>
+
+            <div class="box-tools pull-right">
+                <span data-toggle="tooltip" title="" class="badge bg-blue" th:text="${mensagens.size()}"></span>
+
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="direct-chat-messages">
+                <th:block th:each="mensagem : ${mensagens}">
+                    <div class="direct-chat-msg" th:classappend="${!mensagem.usuario.isProponente() ? 'right' : ''}">
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name" th:classappend="${!mensagem.usuario.isProponente() ?   'pull-right text-success' : 'pull-left text-danger' }">
+                                <strong th:text="${'@' + mensagem.usuario.loginUnico}"></strong>
+                            </span>
+                            <span class="" th:text="${{mensagem.data}}" th:classappend="${!mensagem.usuario.isProponente() ? 'pull-left text-success' : 'pull-right text-danger'}"></span>
+                        </div>
+
+                        <img class="direct-chat-img" src="/images/user_img.svg" alt="message user image">
+                        <div class="direct-chat-text" th:text="${mensagem.texto}"></div>
+                    </div>
+                </th:block>
+            </div>
+
+            <div class="box-footer">
+                <form th:action="@{'/dashboard/auditor/requisicoes/' + ${requisicao_id}} + '/devolver/solicitacao/' + ${solicitacao_id}"
+                    method="POST">
+                    <div class="input-group">
+                        <input type="text" name="mensagem" placeholder="Digite aqui..." class="form-control"
+                            autocomplete="false">
+
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-flat">Enviar</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>

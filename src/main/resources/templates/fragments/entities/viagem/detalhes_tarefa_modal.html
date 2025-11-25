@@ -1,0 +1,58 @@
+<th:block th:fragment="detalhes_tarefa_modal">
+    <div id="detalhes_tarefa_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Dados da tarefa</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Nome:</b> <span id="detalhes_tarefa_nome"></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Status:</b> <span class="label" id="detalhes_tarefa_status"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Descrição:</b>
+                                    <p id="detalhes_tarefa_descricao"></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Observação:</b>
+                                    <p id="detalhes_tarefa_observacao"></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

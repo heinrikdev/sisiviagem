@@ -1,0 +1,157 @@
+<th:block th:include="fragments/main :: page">
+  <th:block th:fragment="content">
+    <div class="panel shadow">
+      <form id="formProponente"
+            th:action="@{/dashboard/admin/proponente/formulario}"
+            th:object="${proponente}"
+            method="POST">
+        <div class="panel-body">
+
+          <!-- ID oculto -->
+          <input type="hidden"
+                 id="proponente_id"
+                 th:field="*{id}" />
+
+          <!-- Linha 1: Login Único / E-mail -->
+          <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+              <div class="form-group">
+                <label for="loginUnico">Login Único:</label>
+                <input type="text"
+                       id="loginUnico"
+                       th:field="*{loginUnico}"
+                       class="form-control"
+                       placeholder="Login único"
+                       required />
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="pessoa.email">E-mail:</label>
+                <input type="email"
+                       id="pessoa.email"
+                       th:field="*{pessoa.email}"
+                       class="form-control"
+                       placeholder="E-mail"
+                       required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Linha 2: Unidade / Senha -->
+          <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+              <div class="form-group">
+                <label for="unidade">Vínculo Unidade Acadêmica</label>
+                <select id="unidade"
+                        th:field="*{unidade}"
+                        class="form-control"
+                        required>
+                  <option th:value="NULL" disabled selected>Selecione</option>
+                  <option th:each="u : ${unidades}"
+                          th:value="${u.id}"
+                          th:text="${u.nome}">Unidade</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password"
+                       id="password"
+                       th:field="*{password}"
+                       class="form-control"
+                       placeholder="Senha"
+                       required />
+              </div>
+            </div>
+          </div>
+
+          <!-- Linha 3: Perfis múltiplos / Status -->
+          <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+              <div class="form-group">
+                <label for="permissao">Perfis:</label>
+                <select multiple
+                        id="permissao"
+                        th:field="*{roles}"
+                        class="form-control"
+                        required>
+                                    <option th:value="@{'DIARIA'}">PASSAGEM/DIÁRIA</option>
+                                    <option th:value="@{'TRANSPORTE'}">TRANSPORTE</option>
+                                    <option th:value="@{'AUDITOR'}">AUDITOR</option>
+                                    <option th:value="@{'ADMIN'}">ADMINISTRADOR</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="enabled">Status:</label>
+                <select id="enabled"
+                        th:field="*{enabled}"
+                        class="form-control"
+                        required>
+                  <option th:value="NULL" disabled selected>Selecione</option>
+                  <option value="true">Ativo</option>
+                  <option value="false">Inativo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Linha 4: Campo extra ativado se AUDITOR -->
+          <div class="row">
+            <div id="auditorPermissao"
+                 class="col-lg-4 col-lg-offset-2 hide">
+              <div class="form-group">
+                <label for="unidadeDepartamento">Responsável por:</label>
+                <select id="unidadeDepartamento"
+                        th:field="*{unidadeDepartamento}"
+                        class="form-control">
+                  <option th:value="NULL" disabled selected>Selecione</option>
+                  <option th:value="${unidadesDepartamento[0].id()}"
+                          th:text="${unidadesDepartamento[0]}">
+                    Unidades (Graduação)
+                  </option>
+                  <!-- Outras opções comentadas... -->
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer com botão Salvar -->
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-lg-1 col-lg-offset-2">
+              <input type="hidden"
+                     name="${_csrf.parameterName}"
+                     th:value="${_csrf.token}" />
+              <button id="formProponenteBtnSubmit"
+                      type="button"
+                      class="btn btn-primary btn-block btn-flat">
+                <b>Salvar</b>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </th:block>
+
+  <th:block th:fragment="scriptjs">
+    <script src="/js/proponente_form.js"></script>
+    <script>
+      // ao mudar seleção de perfis
+      $('#permissao').on('change', function() {
+        const selecionados = $(this).val() || [];
+        const auditorChecked = selecionados.includes('AUDITOR');
+        $('#auditorPermissao').toggleClass('hide', !auditorChecked);
+        $('#unidadeDepartamento').prop('required', auditorChecked);
+      });
+      // dispara no carregamento, para respeitar valores já existentes
+      $('#permissao').trigger('change');
+    </script>
+  </th:block>
+</th:block>

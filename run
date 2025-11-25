@@ -1,0 +1,29 @@
+#!/bin/bash
+
+function usage() {
+    echo "Uso: ./run opcao"
+    echo "Opção pode assumir os seguintes valores:"
+    echo "  dev - executa o projeto no modo desenvolvimento"
+    echo "  prod - executa o projeto no modo produção"
+    echo "  build - compila o projeto e o contêiner Docker"
+    echo "  down - derruba os contêiners"
+}
+
+OPTION=$1
+
+if [[ $OPTION == "dev" ]]; then
+  echo "Executando a configuração de desenvolvimento..."
+  docker compose -f docker-compose.yml
+  echo "Sucesso!"
+elif [[ $OPTION == "prod" ]]; then
+  echo "Executando a configuração de produção..."
+  docker compose up -d
+  echo "Sucesso!"
+elif [[ $OPTION == "down" ]]; then
+  docker compose down
+elif [[ $OPTION == "build" ]]; then
+  mvn clean package -Dmaven.test.skip && docker compose build
+else
+  usage
+fi
+

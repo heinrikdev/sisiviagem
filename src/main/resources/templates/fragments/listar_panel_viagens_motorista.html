@@ -1,0 +1,72 @@
+<th:block th:fragment="listar_panel_viagens_motorista">
+    <div class="row" th:each="viagem : ${pageViagem.content}">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>
+                        <p class="text-justify" th:text="'VIAGEM ' + ${viagem.id} + ' - ' + ${viagem.titulo}"></p>
+                    </h4>
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Descrição:</b>
+                                    <p class="text-justify" style="white-space: pre-line;">
+                                        <th:block th:text="${viagem.descricao}"></th:block>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <p class="text-justify">
+                                        <b>Data Partida: </b>
+                                        <th:block th:text="${{viagem.data}}"></th:block>
+                                    </p>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <p class="text-justify">
+                                        <b>Status: </b>
+                                        <span class="label" th:text="${'    ' + viagem.estadoViagem + '    '}"
+                                            th:classappend="${viagem.isEncerrada() ? 'label-primary' :  viagem.isFinalizada() ? 'label-success' : viagem.isAberta() ? 'label-warning' : 'label-danger'}">
+                                        </span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <p class="text-justify">
+                                        <b>Hora Partida: </b>
+                                        <th:block th:text="${viagem.startHora}"></th:block>
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <a th:href="@{/dashboard/motorista/viagem/detalhes/} + ${viagem.id}" class="btn btn-success btn-block btn-flat">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                <b>Abrir</b>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

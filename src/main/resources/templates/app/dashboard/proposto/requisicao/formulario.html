@@ -1,0 +1,175 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                        <h4 th:text="${'Status do formulário: ' + requisicao.estadoRequisicao}"></h4>
+
+                        <div th:if="${isReenviarSemTransporte != null && isReenviarSemTransporte == true}" class="alert alert-danger">
+                            <h3>
+                                Você escolheu reenviar a requisição sem <strong>"Transporte Oficial"</strong>, logo, deverá alterar os trechos em que 
+                                o tipo de transporte for o oficial. <strong>Atenção! </strong>Caso não faça essa adequação, e reenvie mesmo assim, 
+                                a sua solicitação poderá ser devolvida para adequação.
+                            </h3>
+                        </div>
+                        
+                        <h5 class="text-success" th:if="${requisicao.id != null}">
+                            Inserções salvas.
+                        </h5>
+
+                        <h4 th:if="${requisicaoInvalida}" class="text-danger text-center">
+                            A requisição deve ter pelo menos um anexo e um trecho.
+                        </h4>
+                    </div>
+
+                    <form id="formNovaRequisicao" th:action="@{/dashboard/proposto/requisicoes/salvar}" method="POST" enctype="multipart/form-data">
+                        <div class="panel-body">
+                            <ul class="nav nav-tabs nav-justified">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#nova_requisicao">Informações</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#adicionar_passageiro">Passageiros</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#adicionar_trecho">Trechos</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#adicionar_anexo">Anexos</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <!--/*  INFORMAÇÕES TAB  */-->
+                                <div id="nova_requisicao" class="tab-pane fade in active">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4 style="border-bottom: 1px solid gray;">
+                                                Inserção de informações
+                                            </h4>
+                                        </div>
+                                    </div>
+
+                                    <th:block th:include="fragments/entities/requisicao/requisicao :: requisicao_inputs"></th:block>
+                                </div>
+
+                                <!--/*  PASSAGEIROS TAB  */-->
+                                <div id="adicionar_passageiro" class="tab-pane fade">
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4 style="border-bottom: 1px solid gray;">
+                                                Inserção de passageiros
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    
+                                    <th:block th:include="fragments/entities/requisicao/modal_insercao_passageiro :: modal_insercao_passageiro"></th:block>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <button type="button" class="btn btn-success btn-block" onclick="$('#modal_insercao_passageiro').modal();">
+                                               <i class="fa fa-plus"></i>
+                                                Adicionar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!--/*  TABLE PASSAGEIROS */-->
+                                    <th:block th:include="fragments/entities/requisicao/listar_requisicao_passageiros :: listar_requisicao_passageiros"></th:block>
+                                </div>
+
+                                <!--/*  TRECHOS TAB  */-->
+                                <div id="adicionar_trecho" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4 style="border-bottom: 1px solid gray;">
+                                                Inserção de trechos
+                                            </h4>
+                                        </div>
+                                    </div>
+
+                                    <!--/*  INPUTS TRECHO */-->
+                                    <th:block th:include="fragments/entities/requisicao/trecho :: trecho_inputs"></th:block>
+
+                                    <!--/*  SUBMIT  */-->
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <button id="btn_adicionar_trecho" class="btn btn-success btn-block">
+                                                <i class="fa fa-plus"></i>
+                                                Adicionar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!--/*  TABLE TRECHO */-->
+                                    <th:block th:include="fragments/entities/requisicao/listar_trechos :: listar_trechos"></th:block>
+                                </div>
+
+                                <!--/*  ANEXOS TAB  */-->
+                                <div id="adicionar_anexo" class="tab-pane fade">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4 style="border-bottom: 1px solid gray;">
+                                                Inserção de anexos
+                                            </h4>
+                                        </div>
+                                    </div>
+
+                                    <!--/*  INPUTS ANEXO  */-->
+                                    <th:block th:include="fragments/entities/requisicao/anexo :: anexo_inputs"></th:block>
+
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <button id="btn_adicionar_anexo" class="btn btn-success btn-block">
+                                                    <i class="fa fa-plus"></i>
+                                                    Adicionar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--/*  TABLE ANEXO  */-->
+                                    <th:block th:include="fragments/entities/requisicao/listar_anexos :: listar_anexos"></th:block>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="row text-right">
+                                <div class="col-lg-2 pull-right">
+                                    <button type="submit" id="btnNovaRequisicao__" th:attr="data-anexos=${anexos.size()}, data-trechos=${trechos_ida.size() + trechos_volta.size()}" class="btn btn-primary btn-block">
+                                        Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <th:block th:include="fragments/entities/requisicao/modal_dados_veiculo_proprio :: modal_dados_veiculo_proprio"></th:block>
+    </th:block>
+
+    <th:block th:fragment="scriptjs">
+        <script src="/js/novaRequisicao.js"></script>
+        <script src="/js/novaRequisicaoTrecho.js"></script>
+        <script src="/js/requisicao_modal_veiculo_proprio.js"></script>
+        <script src="/js/novaRequisicaoInsercaoPassageiroModal.js"></script>
+
+        <th:block th:if="${show_modal_passageiro != null && show_modal_passageiro == true }">
+            <script>
+                $('#closeModalPassageiro1').remove();
+                $('#closeModalPassageiro2').remove();
+                $('#formPassageiro').removeClass('hide');
+                $('#modal_insercao_passageiro').modal('show');
+            </script>
+        </th:block>
+    </th:block>
+</th:block>

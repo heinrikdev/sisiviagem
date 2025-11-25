@@ -1,0 +1,215 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel shadow">
+                    <div class="panel-heading">
+                        <b>Descrição:</b>
+                        <p class="text-justify" style="white-space: pre-line;">
+                            <th:block th:text="${viagem.descricao}"></th:block>
+                        </p>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row" style="margin-bottom:5px">
+                            <div class="col-lg-12">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a data-toggle="tab" href="#viagem">Dados da Viagem</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#documentos" th:if="${viagem.isFinalizada()}">Documentos</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#motoristas">Motoristas</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#passageiros" th:text="'Solicitações Atendidas (Passageiros: '+ ${requisicaoPassageiros.size()} +')'">
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#veiculos">Veículos Adicionados</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#abastecimentos">Abastecimentos</a>
+                                    </li>
+
+                                    <li>
+                                        <a data-toggle="tab" href="#tarefas">Tarefas</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tab-content">
+                            <div id="viagem" class="tab-pane active">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Identificação da viagem: </b> <span th:text="${viagem.titulo}"></span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <b>Data Partida: </b> <span th:text="${{viagem.data}}"></span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <b>Hora Partida: </b> <span th:text="${viagem.startHora}"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Data Chegada: </b> <span th:text="${{viagem.dataTermino}}"></span>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <b>Hora Chegada: </b> <span th:text="${viagem.endHora}"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="row" th:if="${viagem.hasObservacao()}">
+                                    <div class="col-lg-12">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <b>Observações: </b>
+                                                <p class="text-justify" th:text="${viagem.observacao}"></p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="documentos" class="tab-pane" th:if="${viagem.isFinalizada()}">
+                                <!--/*  TABLE ANEXOS  */-->
+                                <th:block th:include="fragments/entities/viagem/listar_anexos :: listar_anexos"></th:block>
+                            </div>
+
+                            <div id="motoristas" class="tab-pane">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <a id="add_motorista" class="btn btn-default btn-flat" th:href="@{/dashboard/transporte/viagem/editar/} + ${viagem.id} + ${'?tab=motoristas'}">
+                                            <i class="fa fa-plus"></i>
+                                            Adicionar
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--/*  TABLE MOTORISTAS   */-->
+                                <th:block th:include="fragments/entities/viagem/table_motoristas :: table_motoristas"></th:block>
+                            </div>
+
+                            <div id="passageiros" class="tab-pane">
+                                <!--/*  TABLE REQUISICAO PASSAGEIROS  */-->
+                                <th:block th:include="fragments/entities/requisicao/listar_requisicao_passageiros :: listar_requisicao_passageiros"></th:block>
+                            </div>
+
+                            <div id="veiculos" class="tab-pane">
+                                <div class="row">
+                                    <div class="col-lg-2 btn-block btn-flat">
+                                        <a id="add_veiculo" class="btn btn-default btn-flat" th:href="@{/dashboard/transporte/viagem/editar/} + ${viagem.id} + ${'?tab=veiculos'}">
+                                            <i class="fa fa-plus"></i>
+                                            Adicionar
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--/*  TABLE VEICULOS  */-->
+                                <th:block th:include="fragments/entities/viagem/listar_veiculos :: listar_veiculos"></th:block>
+                            </div>
+
+                            <div id="abastecimentos" class="tab-pane">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!--/*  TABLE ABASTECIMENTOS  */-->
+                                        <th:block th:include="fragments/entities/viagem/listar_abastecimentos :: listar_abastecimentos"></th:block>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="tarefas" class="tab-pane">
+                                <div class="row">
+                                    <div class="col-lg-2 btn-block btn-flat">
+                                        <a id="add_tarefa" class="btn btn-default" data-toggle="modal" data-target="#adicionar_tarefa_modal">
+                                            <i class="fa fa-plus"></i>
+                                            Adicionar
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--/*  TABLE TAREFAS  */-->
+                                <th:block th:include="fragments/entities/viagem/listar_tarefas :: listar_tarefas"></th:block>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="btn-group pull-right">
+                                    <a th:href="@{'/dashboard/transporte/viagem/' + ${viagem.id} + '/detalhes/finalizar'}"
+                                        class="btn bg-info btn-flat" th:if="${viagem.isEncerrada()}">Finalizar</a>
+                                    <a th:href="@{/dashboard/transporte/viagem/editar/} + ${viagem.id}" class="btn bg-purple btn-flat">Editar</a>
+                                    <th:block th:if="${viagem.isFinalizada()}">
+
+                                        <a th:href="@{'/dashboard/transporte/viagem/'+ ${viagem.id} + '/gerar_relatorio'}"
+                                            class="btn bg-bsecondary btn-flat" target="_blank">
+                                            Gerar Relatório
+                                        </a>
+
+                                        <a class="btn bg-bprimary btn-flat" data-toggle="modal" data-target="#adicionar_anexo_modal">
+                                            Add Documentos
+                                        </a>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <th:block th:if="${viagem.isFinalizada()}" th:include="fragments/entities/viagem/adicionar_anexo_modal :: adicionar_anexo_modal"></th:block>
+        <th:block th:include="fragments/entities/viagem/adicionar_tarefa_modal :: adicionar_tarefa_modal"></th:block>
+        <th:block th:include="fragments/entities/viagem/adicionar_abastecimento_modal :: adicionar_abastecimento_modal"></th:block>
+        <th:block th:include="fragments/entities/viagem/detalhes_tarefa_modal :: detalhes_tarefa_modal"></th:block>
+    </th:block>
+
+    <!--/*  Modal   */-->
+    <div id="adicionar-tarefa-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!--/*  Modal content  */-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adicionar Tarefa</h4>
+                </div>
+
+                <form action="">
+                    <div class="modal-body">
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:fragment="scriptjs">
+        <script src="/js/transporte_viagem.js"></script>
+        <script src="/js/adicionar_abastecimento.js"></script>
+        <script src="/js/listar_veiculo.js"></script>
+    </th:block>
+</th:block>

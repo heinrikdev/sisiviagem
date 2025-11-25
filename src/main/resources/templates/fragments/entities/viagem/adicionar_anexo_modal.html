@@ -1,0 +1,52 @@
+<th:block th:fragment="adicionar_anexo_modal">
+    <div id="adicionar_anexo_modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+ 
+            <form th:action="@{/dashboard/transporte/viagem/adicionar_documento/} + ${viagem.id}" method="POST" enctype="multipart/form-data">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title text-center">Adicionar Anexo</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="hidden" th:name="@{'anexo_id'}" th:value="${anexo.id}" />
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="anexoNome">Nome:</label>
+                                    <input type="text" class="form-control" th:name="@{'anexo_nome'}" th:value="${anexo.nome}" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="nome">Arquivo:</label>
+                                    <input type="file" class="form-control-file" name="file" th:field="${anexo.file}" required>
+                                    <p class="text-red">No máximo 5MB.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="descricao">Descição:</label>
+                                    <textarea class="form-control" name="descricao" maxlength="1000" th:field="${anexo.descricao}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>

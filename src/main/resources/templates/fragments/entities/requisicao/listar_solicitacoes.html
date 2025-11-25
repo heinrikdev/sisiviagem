@@ -1,0 +1,279 @@
+<th:block th:fragment="listar_solicitacoes">
+    <table class="table display nowrap table-striped" style="width:100%">
+        <thead>
+            <th>Data da solicitação</th>
+            <th>Tipo de solicitação</th>
+            <th>Estado da solicitação</th>
+            <th class="text-center">Enviado em</th>
+            <th class="text-center">Avaliado em</th>
+            <th class="text-right"></th>
+        </thead>
+
+        <tbody>
+            <tr th:each="solicitacao : ${requisicao.solicitacoes}">
+                <td th:text="${{requisicao.dataRequisicao}}"></td>
+                <td th:text="${solicitacao.tipoSolicitacao}"></td>
+                
+                <td>
+                    <span class="label" th:text="${solicitacao.estadoSolicitacao}" th:classappend="${solicitacao.isAprovada() ? 'label-success' : solicitacao.isRecusada() ? 'label-danger' : solicitacao.isDevolvida() ? 'label-warning' : 'label-primary'}"></span>
+                </td>
+
+                <td class="text-center">
+                    <th:block th:text="${{solicitacao.enviadoUnidadeEm}}" th:if="${solicitacao.enviadoUnidadeEm != null}"></th:block>
+                    <th:block th:if="${solicitacao.enviadoUnidadeEm == null}">---</th:block>
+                </td>
+
+                <td class="text-center">
+                    <th:block th:text="${{solicitacao.dataAvaliacaoPelaDepartamento}}" th:if="${solicitacao.dataAvaliacaoPelaDepartamento != null}"></th:block>
+                    <th:block th:if="${solicitacao.dataAvaliacaoPelaDepartamento == null}">---</th:block>
+                </td>
+
+                <td class="text-right">
+                    <div class="btn-group">
+                        <th:block sec:authorize="hasAuthority('USER')" th:if="${currentRole.name() == 'USER'}">
+                            <!-- <a th:if="${solicitacao.isDeletavel()}" th:href="@{/dashboard/proposto/requisicoes/editar/} + ${requisicao.id}"
+                                class="btn btn-danger btn-flat">
+                                <i class="fa fa-trash"></i>
+                                Excluir
+                            </a> -->
+
+                            <a th:if="${solicitacao.isAprovada()}" class="cancelarViagem btn btn-danger">
+                                <i class="fa fa-trash">Cancelar</i>
+                            </a>
+
+                            <th:block th:if="${solicitacao.isDiariaAndAprovada() && (!requisicao.hasTransporte() || (requisicao.hasTransporteEncerrado()))}">
+                                <a class="prestacaoContas btn btn-primary" th:attr="data-is-modificada=${requisicao.modificada},data-requisicao-id=${requisicao.id}">
+                                    <i class="fa fa-money" aria-hidden="true"></i>
+                                    Prestação de contas
+                                </a>
+                            </th:block>
+                        </th:block>
+
+                        <th:block th:if="${solicitacao.isSubmetida() && (solicitacao.isDiaria() || solicitacao.isPassagem()) && (currentRole.name() == 'DIARIA' || currentRole.name() == 'PASSAGEM')}" sec:authorize="hasAuthority('DIARIA') || hasAuthority('PASSAGEM')" >
+                            <div class="col-lg-12 text-right">
+                                <div class="btn-group">
+                                    <a th:href="@{'/dashboard/unidades/requisicoes/aprovar/' + ${solicitacao.id} + '/' + ${requisicao.id}}"
+                                        class="btn btn-success">
+                                        Aprovar
+                                    </a>
+
+                                    <a th:href="@{'/dashboard/unidades/requisicoes/recusar/' + ${solicitacao.id} + '/' + ${requisicao.id}}"
+                                        class="btn btn-danger">
+                                        Recusar
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+
+                        <th:block th:if="${!solicitacao.isEncerrada() && (solicitacao.isDiaria() || solicitacao.isPassagem()) && (currentRole.name() == 'AUDITOR')}" sec:authorize="hasAuthority('AUDITOR')">
+                            <div class="col-lg-12 text-right">
+                                <div class="btn-group">
+                                    <a th:href="@{'/dashboard/auditor/requisicoes/' + ${requisicao.id}} + '/encerrar/solicitacao/' + ${solicitacao.id}"
+                                        class="btn btn-success">
+                                        Encerrar
+                                    </a>
+
+                                    <a th:href="@{'/dashboard/auditor/requisicoes/' + ${requisicao.id}} + '/devolver/solicitacao/' + ${solicitacao.id}"
+                                        class="btn btn-danger" data-toggle="tooltip" title="Devolver para o solicitante">
+                                        Devolver
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+
+                        <th:block  sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                            <div class="col-lg-12 text-right" >
+                                <div class="btn-group">
+                                    <a th:href="@{'/dashboard/requisicoes/avaliar/' + ${requisicao.id}} + '/devolver/solicitacao/' + ${solicitacao.id}"
+                                        class="btn btn-danger " data-toggle="tooltip" title="Devolver para o solicitante"
+                                        th:if="${solicitacao.isSubmetida() && solicitacao.isTransporte() || viagens != null && viagens.isEmpty() && solicitacao.isTransporte()}">
+                                        Devolver
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div id="prestacao-contas-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Prestação de Contas</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form id="formDescricaoAtividade">
+                                <label for="descricao_atividade">Descrição das atividades desenvolvidas para fins de relatório de viagem:</label>
+                                <textarea name="descricao_atividade" id="descricao_atividade" cols="30" rows="5" class="form-control" required></textarea>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 text-center" style="margin-top:15px;">
+                            <strong style="font-size:15px;">
+                                Existe divergência entre o planejado e o executado nessa viagem?
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a type="button" id="prestacaoContas" class="btn btn-default btn-flat">
+                        Não
+                    </a>
+
+                    <a type="button" id="prestacaoContasDivergencia" class="btn btn-default btn-flat">
+                        Sim
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="cancelar-viagem-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" th:text="'@' + ${userName}"></h4>
+                </div>
+
+                <div class="modal-body">
+                    <p>Por favor, entrar em contato com o setor responsável para cancelar a viagem!</p>
+                </div>
+
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-default" data-dismiss="modal">Ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="divergencia-info-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <form th:action="@{/dashboard/proposto/requisicao/divergenciaJustificativa}" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">
+                            Justificativa da divergência entre o planejado e o executado
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="motivo">Por que houve divergência entre o planejado e o executado na viagem?</label>
+                                    <textarea type="text" class="form-control" name="motivo" required></textarea>
+                                    <input type="hidden" class="form-control" name="atividadesDesenvolvidas" id="atividadesDesenvolvidas" required/>
+                                    <input type="hidden" id="requisicao_id" name="requisicao_id" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-lg-2 pull-right">
+                                <button class="btn btn-primary btn-flat">
+                                    Salvar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        function onDocumentReady(f) {
+            /in/.test(document.readyState) ? setTimeout('onDocumentReady(' + f + ')', 9) : f();
+        }
+
+        onDocumentReady(() => {
+
+            let requisicaoId;
+
+            const redirectPrestacaoContas = (descricaoAtividadeDesenvolvida = "") => {
+                const URL = `/dashboard/proposto/requisicao/${requisicaoId}/prestacao_contas` + descricaoAtividadeDesenvolvida;
+                window.location = URL;
+            }
+
+            const formAtividadeDesenvolvidas = () => {
+                
+                let formDescricaoAtividade = document.getElementById('formDescricaoAtividade');
+                let isFormValid = formDescricaoAtividade.checkValidity();
+                let atividadesDesenvolvidas = '?atividadeDesenvolvida=' + document.getElementById('descricao_atividade').value;
+
+                if (!isFormValid) {
+
+                    formDescricaoAtividade.reportValidity();
+                }
+
+                return {
+                    isFormValid: isFormValid,
+                    atividadesDesenvolvidas: atividadesDesenvolvidas,
+                    textAtividadesDesenvolvidas:  document.getElementById('descricao_atividade').value
+                };
+            }
+
+            $('.cancelarViagem').on('click', (event) => {
+                $('#cancelar-viagem-modal').modal('show');
+            });
+
+            $('#prestacaoContas').on('click', () => {
+
+                let dataForm = formAtividadeDesenvolvidas();
+
+                if (dataForm.isFormValid) {
+                    redirectPrestacaoContas(dataForm.atividadesDesenvolvidas);
+                }
+            });
+
+            $('#prestacaoContasDivergencia').on('click', () => {
+
+                let dataForm = formAtividadeDesenvolvidas();
+
+                if (dataForm.isFormValid) {
+
+                    document.getElementById('atividadesDesenvolvidas').value = dataForm.textAtividadesDesenvolvidas;
+                    $('#divergencia-info-modal').modal('show');
+                }
+            });
+
+            $('.prestacaoContas').on('click', (event) => {
+
+                const requisicao = $(event.target)[0].dataset;
+                requisicaoId = requisicao.requisicaoId;
+
+                $('#requisicao_id').val(requisicaoId);
+
+                if (requisicao.isModificada == 'false') {
+
+                    $('#prestacao-contas-modal').modal('show');
+
+                } else {
+
+                    redirectPrestacaoContas();
+                }
+            });
+        });
+    </script>
+</th:block>

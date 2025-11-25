@@ -1,0 +1,38 @@
+<th:block th:fragment="listar_veiculos">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th>Placa</th>
+                    <th>Modelo</th>
+                    <th>km Inicial</th>
+                    <th>km Final</th>
+                    <th class="text-center"></th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="veiculo, iteration : ${viagem.veiculos}">
+                        <td th:text="${veiculo.placa}"></td>
+                        <td th:text="${veiculo.modelo}"></td>
+                        <!-- ufg.br.fabricasw.jatai.swsisviagem.domain.enums.ETipoQuilometragem.KM_INICIAL
+                        ufg.br.fabricasw.jatai.swsisviagem.domain.enums.ETipoQuilometragem.KM_FINAL -->
+                        <td th:text="${viagem.getQuilometragemVeiculo(veiculo.id, 0)}"></td>
+                        <td th:text="${viagem.getQuilometragemVeiculo(veiculo.id, 1)}"></td>
+                        <td class="text-right">
+                            <a role="button" id="btn_abastecimento" class="btn btn-default btn-flat" th:attr="data-veiculo=${veiculo.id}" data-toggle="modal" data-target="#adicionar_abastecimento_modal">
+                                <i class="fa fa-wrench"></i>
+                                Abastecimento
+                            </a>
+                            <th:block sec:authorize="hasAuthority('MOTORISTA')" th:if="${currentRole.name() == 'MOTORISTA'}">
+                                <a role="button" class="btn btn-default btn-flat" th:href="@{'/dashboard/motorista/viagem/detalhes/trocarVeiculo/' + ${viagem.id} + '/' + ${veiculo.id}}">
+                                    <i class="fa fa-refresh"></i>
+                                    Trocar Veículo
+                                </a>
+                            </th:block>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

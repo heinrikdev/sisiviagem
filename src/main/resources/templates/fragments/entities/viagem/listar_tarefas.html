@@ -1,0 +1,40 @@
+<th:block th:fragment="listar_tarefas">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th>N°</th>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>#</th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="tarefa, iteration : ${viagem.tarefas}" th:attr="data-id=${tarefa.id}">
+                        <td th:text="${iteration.index + 1}"></td>
+
+                        <td th:text="${tarefa.titulo}"></td>
+
+                        <td>
+                            <span class="label" th:id="${tarefa.id}" th:classappend="${tarefa.getLabelColorStatus()}" th:text="${tarefa.estadoTarefa}"></span>
+                        </td>
+
+                        <!-- <td class="text-center" sec:authorize="hasAuthority('MOTORISTA')">
+                            <select style="width:125px"  class="form-control status_tarefa" th:attr="data-tarefa=${tarefa.id},data-status=${tarefa.estadoTarefa.id()}">
+                                <option value="-1">Selecione</option>
+                                <option value="nao_realizada">Não realizada</option>
+                                <option value="concluida">Concluída</option>
+                            </select>
+                        </td> -->
+
+                        <td>
+                            <button class="btn btn-success btn-sm btn_avaliar_tarefa_list" id="btn_avaliar_tarefa_list" sec:authorize="hasAuthority('MOTORISTA')" th:if="${currentRole.name() == 'MOTORISTA'}">Avaliar</button>
+                            <button class="btn btn-success btn-sm btn_editar_tarefa_list"  id="btn_editar_tarefa_list" sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">Editar</button>
+                            <button class="btn btn-info btn-sm btn_ver_tarefa_list"        id="btn_ver_tarefa_list">Visualizar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

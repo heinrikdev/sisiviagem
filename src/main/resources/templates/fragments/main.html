@@ -1,0 +1,127 @@
+<th:block th:fragment="page">
+    <!DOCTYPE html>
+    <html>
+    <th:block th:include="fragments/header :: header"></th:block>
+
+    <body class="hold-transition skin-blue sidebar-mini">
+        <!--/* Site wrapper */-->
+        <div class="wrapper">
+            <th:block th:include="fragments/navigation :: navigation"></th:block>
+            <th:block th:include="fragments/navigation :: sidebar"></th:block>
+
+            <!--/* Content Wrapper. Contains page content */-->
+            <div class="content-wrapper">
+                <!--/* Content Header (Page header) */-->
+                <section class="content-header">
+                    <h1 th:text="${titlePage}">Dashboard</h1>
+
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/dashboard">
+                                <i class="fa fa-dashboard"></i> Home
+                            </a>
+                        </li>
+
+                        <li class="active" th:text="${titlePage}">
+                            Blank page
+                        </li>
+                    </ol>
+
+                    <hr class="line-header"/>
+                </section>
+
+                <!--/* Main content */-->
+                <section class="content">
+                    <!--/* Page Content */-->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <th:block th:include="this :: content"></th:block>
+                        </div>
+                    </div>
+                </section>
+                <!--/* /.content */-->
+            </div>
+            <!--/* /.content-wrapper */-->
+            <!--/* Page Footer */-->
+            <th:block th:include="fragments/footer :: footer"></th:block>
+        </div>
+
+        <!--/* Loarder Modal*/-->
+        <div class="modal fade" id="loaderModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/* Logout Modal */-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" th:text="'@' + ${userName}"></h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <p>Deseja realmente sair do sistema?</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary" id="btn_logout_sis">Sim</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--/* MODAL ALERTA */-->
+        <div id="d-infoModal" class="modal fade" tabindex="100001" role="dialog">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+        
+                    <div class="modal-header" style="background: #105b86!important;border-bottom: none;text-align: center;">
+                        <h1 class="modal-title">
+                            <div class="icon-box">
+                                <i class="material-icons">notification_important</i>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            </div>
+                        </h1>
+                    </div>
+        
+                    <div class="modal-body text-center">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Ooops!</h2>
+                            </div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h4 id="d-infoModalTexto" class="text-justify"></h4>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="modal-footer" style="border-top: none!important;">
+                        <button id="btnOk" class="btn btn-primary" data-dismiss="modal">
+                            <b>Ok</b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <!--/* Page Footer Default Scripts */-->
+        <th:block th:include="fragments/footer :: footer-default-scripts"></th:block>
+        <th:block th:include="~{this :: scriptjs} ?: ~{}"></th:block>
+    </body>
+    </html>
+</th:block>

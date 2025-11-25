@@ -1,0 +1,86 @@
+<th:block th:fragment="viagem_modal_filtro">
+    <!-- Modal -->
+    <div id="viagem_modal_filtro" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Filtrar requisições</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="tipoFiltro">Filtrar por:</label>
+                                <select class="form-control" name="tipoFiltro" id="tipoFiltro">
+                                    <option value="">Selecione</option>
+                                    <option value="#viagem_numero">N° da viagem</option>
+                                    <option value="#estado">Estado da viagem</option>
+                                    <!-- <option value="data">Data</option>
+                                    <option value="periodo">Período</option>
+                                    <option value="mes">Mês</option> -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row filtro_form hide" id="viagem_numero">
+                        <div class="col-lg-12">
+                            <form th:action="@{/dashboard/transporte/viagem/listar/filtrar/numero}" method="GET">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="value">Nº da Requisição: </label>
+                                            <input class="form-control" type="text" name="value" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row filtro_form hide" id="estado">
+                        <div class="col-lg-12">
+                            <form th:action="@{/dashboard/transporte/viagem/listar/filtrar/estado_viagem}" method="GET">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="value">Status:</label>
+                                            <select class="form-control" name="value" required>
+                                                <option value="">Selecione</option>
+                                                <option value="0">Encerrada</option>
+                                                <option value="1">Finalizada</option>
+                                                <option value="2">Aberta</option>
+                                                <option value="3">Em andamento</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

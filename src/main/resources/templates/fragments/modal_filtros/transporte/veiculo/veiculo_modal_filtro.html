@@ -1,0 +1,54 @@
+<th:block th:fragment="veiculo_modal_filtro">
+    <!-- Modal -->
+
+    <div id="modalVeiculoFiltrar" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Filtrar veiculos</h4>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="tipoFiltro">Filtrar por:</label>
+                                <select class="form-control" name="tipoFiltro" id="tipoFiltro">
+                                    <option value="">Selecione</option>
+                                    <option value="#todos">Todos (ativos e inativos)</option>
+                                    <option value="#ativos">Ativos</option>
+                                    <option value="#inativos">Inativos</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 filtro_form hide" id="todos">
+                            <form th:action="@{/dashboard/transporte/veiculo/listar/todos}" method="GET">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 filtro_form hide" id="ativos">
+                            <form th:action="@{/dashboard/transporte/veiculo/listar/ativos}" method="GET">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 filtro_form hide" id="inativos">
+                            <form th:action="@{/dashboard/transporte/veiculo/listar/inativos}" method="GET">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-block btn-flat btn-primary" type="submit">Filtrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>

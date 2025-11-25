@@ -1,0 +1,29 @@
+<th:block th:fragment="devolucao_diaria">
+    <th:block th:each="descricaoDevolucao : ${requisicao.getHistoricoDevolucao()}">
+        <ul class="timeline">
+            <!-- timeline time label -->
+            <li class="time-label">
+                <span class="bg-red" th:text="${{descricaoDevolucao.enviadoEm}}"></span>
+            </li>
+            <!-- /.timeline-label -->
+
+            <!-- timeline item -->
+            <li>
+                <!-- timeline icon -->
+                <i class="fa fa-info bg-blue"></i>
+
+                <div class="timeline-item">
+                    <h3 class="timeline-header">
+                        Devolvido por: <th:block th:text="${descricaoDevolucao.devolvidoPor}"></th:block>
+                    </h3>
+
+                    <div class="timeline-body">
+                        <p class="text-justify" th:text="${descricaoDevolucao.descricao}"></p>
+                    </div>
+
+                    <div class="timeline-footer"></div>
+                </div>
+            </li>
+        </ul>
+    </th:block>
+</th:block>

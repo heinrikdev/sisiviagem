@@ -1,0 +1,70 @@
+<!--
+    EXIBE OS PASSAGEIROS DA REQUISICAO COM A AS INFORMAÇÕES DE TRAJETO.
+-->
+<th:block th:fragment="listar_passageiros">
+    <div class="row">
+        
+        <div class="col-lg-4">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon" style="background-color:white!important">
+                        Trajeto:
+                    </span>
+    
+                    <select class="form-control" name="tipoTrajeto" id="tipoTrajeto">
+                        <option value="-1">Selecione</option>
+                        <option value="ida">Ida</option>
+                        <option value="volta">Volta</option>
+                    </select>
+    
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-flat hide" id="btn_salvar_status">Salvar</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover display nowrap table-striped" style="width:100%">
+                <thead>
+                    <th style="width:120px" class="text-center" id="status_passageiro_th"></th>
+                    <th>Nome</th>
+                    <th class="text-center">Trajeto</th>
+                    <th>Tipo sanguineo</th>
+                    <th>Telefone</th>
+                    <th class="text-center">#</th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="p, iter : ${requisicaoPassageiros}">
+
+                        <td class="text-center">
+                            <select style="width:115px"  class="form-control status_passageiro hide" th:attr="name=${p.id},data-status-ida=${p.estadoIda},data-status-volta=${p.estadoVolta}">
+                                <option value="0" selected>Presente</option>
+                                <option value="1">Ausente</option>
+                            </select>
+                        </td>
+
+                        <td th:text="${p.passageiro.nome}"></td>
+
+                        <td class="text-center">
+                            <span class="label" th:text="${p.infoTrajetoPassageiro}" th:classappend="${p.getLabelColorInfoTrajeto()}"></span>
+                        </td>
+
+                        <td th:text="${p.passageiro.tipoSanguineo}"></td>
+                        <td th:text="${p.passageiro.telefone}"></td>
+
+                        <td class="text-center">
+                            <button class="btn btn-default btn_detalhes" th:attr="data-passageiro=${p.passageiro.id}">
+                                <i class="fa fa-eye" th:attr="data-passageiro=${p.passageiro.id}"></i>
+                                Detalhes
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

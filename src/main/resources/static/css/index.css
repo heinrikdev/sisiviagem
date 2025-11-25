@@ -1,0 +1,161 @@
+.shadow {
+  border: #ddd solid 1px;
+  background-color: #ffffff;
+  padding: 5px;
+}
+
+.panel-heading {
+  border-bottom: 1px solid lightgray !important;
+}
+
+.panel-footer {
+  background-color: #ffffff !important;
+}
+
+.toggle-sis-viagem {
+  background-color: #3c8dbc !important;
+}
+
+hr.line-header {
+  height: 5px;
+  border: 0;
+  box-shadow: 0 5px 5px -5px #8c8b8b inset !important;
+  margin-top: 6px !important;
+  margin-bottom: 0px !important;
+}
+
+.modal {
+  overflow-y: auto;
+}
+
+.modal.in,
+.modal.fade.in,
+.modal-open {
+  overflow:auto;
+  overflow-x:hidden;
+}
+
+
+/**
+  LOADER CSS
+**/
+
+.loader {
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: 10px auto !important;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.input-group .input-group-addon {
+  border-radius: 0;
+  border-color: #d2d6de;
+  background-color: #d2d6de;
+}
+
+.bg-bprimary, .bg-bprimary:hover {
+  background-color: #367fa9!important;
+  color:white!important;
+}
+.bg-bsecondary, .bg-bsecondary:hover {
+  background-color:	#3c8dbc!important;
+  color: white!important;
+}
+
+.bg-info {
+  background-color: #17a2b8 !important;
+}
+
+.bg-primary,
+.bg-info,
+.bg-secondary,
+.bg-info:hover,
+.bg-secondary:hover {
+  color: white;
+}
+
+.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+.label {
+    font-size: 95%!important;
+}
+
+/**
+*   DATATABLES
+*
+*/
+
+table.dataTable thead th,
+table.dataTable thead td {
+  border-bottom: 1px solid #111;
+  border-top: 1px solid #111;
+}
+
+.table>tbody>tr:not(:first-child)>td{
+  vertical-align: middle!important;
+  border-top: 1px solid #ddd!important;
+  white-space: nowrap!important;
+}
+
+td {
+    vertical-align: middle!important;
+}
+
+td, th {
+  white-space: nowrap;
+}
+
+tbody>tr:last-child td {
+  border-bottom: 1px solid black;
+}
+
+tbody>tr:last-child {
+  margin-bottom: 15px;
+}
+
+
+table {
+  margin-bottom: 0px!important;
+}
+
+.error-message {
+  text-indent: 0.5rem !important;
+}
+
+.panel-success>.panel-heading {
+  color: #fff !important;
+  background-color: #00a65a !important;
+  border-color: #00a65a !important;
+}
+
+.panel-success {
+  border-color: #00a65a !important;
+}
+
+.panel-warning>.panel-heading {
+  color: #fff !important;
+  background-color: #f0ad4e !important;
+  border-color: #f0ad4e !important;
+}
+
+.panel-warning {
+  border-color: #f0ad4e !important;
+}

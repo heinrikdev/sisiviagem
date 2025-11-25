@@ -1,0 +1,18 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <th:block th:if="${!isCadastroCompleto}">
+            <div class="alert alert-danger text-justify" role="alert" style="font-size: 18pt;">
+                Verificamos que o seu cadastro não está completo, por esse motivo
+                foram desabilitadas as opções de visualizar e cadastrar requisições,
+                para normalizar atualize seu cadastro clicando
+                <a href="/dashboard/meu-perfil" style="text-decoration: none;">
+                    aqui
+                </a>.
+            </div>
+        </th:block>
+
+        <th:block th:if="${sistemaBloqueadoDiariaPassagem}">
+            <div class="alert alert-info text-justify" role="alert" style="font-size: 18pt;" th:text="${memorando_interdicao_scdp}"></div>
+        </th:block>
+    </th:block>
+</th:block>

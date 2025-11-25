@@ -1,0 +1,65 @@
+<!--
+    EXIBE OS PASSAGEIROS DA REQUISICAO COM A AS INFORMAÇÕES DE TRAJETO.
+-->
+<th:block th:fragment="listar_requisicao_passageiros">
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover display nowrap table-striped" style="width:100%" id="requisicaoPassageiros">
+                <thead>
+                    <th sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">N° Req.</th>
+                    <th>Nome</th>
+                    <th>Trajeto</th>
+                    <th>Identificacao</th>
+                    <th>Tipo sanguineo</th>
+                    <th>RG - Orgão expedidor</th>
+                    <th>Telefone</th>
+                    <th>Motivo</th>
+                    <th class="text-center"></th>
+                </thead>
+
+                <tbody>
+                    <tr th:each="p, iter : ${requisicaoPassageiros}">
+                        <td sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                            <a th:href="@{'/dashboard/transporte/requisicoes/detalhes/' + ${p.requisicao.id}}" th:text="${p.requisicao.id}"></a>
+                        </td>
+
+                        <td th:text="${p.passageiro.nome}"></td>
+                        <td>
+                            <span class="label" th:text="${p.infoTrajetoPassageiro}" th:classappend="${p.getLabelColorInfoTrajeto()}"></span>
+                        </td>
+                        <td th:text="${p.passageiro.Identificacao}"></td>
+                        <td th:text="${p.passageiro.tipoSanguineo}"></td>
+                        <td th:text="${p.passageiro.rg + ' - ' + p.passageiro.orgao}"></td>
+                        <td th:text="${p.passageiro.telefone}"></td>
+                        <td th:text="${p.motivo}"></td>
+
+                        <td class="text-right">
+                            <th:block th:if="${isModoEditar}">
+                                <div class="btn-group btn-xs" style="width:130px;">
+                                    <button type="submit" th:formaction="@{'/dashboard/proposto/requisicoes/passageiro/remover/' + ${p.id}}" class="btn btn-xs btn-danger btn-flat">
+                                        Excluir
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+    
+                                    <button type="submit" th:formaction="@{'/dashboard/proposto/requisicoes/passageiro/editar/' + ${p.id}}" class="btn btn-xs btn-success btn-flat">
+                                        Editar
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </div>
+                            </th:block>
+
+                            <th:block sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                                <div class="btn-group btn-xs" th:if="${viagem != null}">
+                                    <a type="submit" th:href="@{/dashboard/transporte/viagem/remover/passageiro/} + ${p.id} + '/' + ${viagem.id}" class="btn btn-xs btn-danger btn-flat">
+                                        Excluir
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </th:block>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</th:block>

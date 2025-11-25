@@ -1,0 +1,47 @@
+<th:block th:fragment="header">
+    <head lang="pt-br">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--/* Tell the browser to be responsive to screen width */-->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!--/* CSRF Header e Token usados nas requisições Ajax */-->
+        <meta th:name="_csrf" th:content="${_csrf.token}"/>
+        <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+        <title>Sistema de solicitação de viagem</title>
+
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+
+        <!--/* Bootstrap 3.3.7 */-->
+        <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+        <!--/* Theme style */-->
+        <link rel="stylesheet" href="/assets/adminlte/css/AdminLTE.min.css">
+        <!--/* AdminLTE Skin */-->
+        <link rel="stylesheet" href="/assets/adminlte/css/skins/skin-blue.min.css">
+        <!--/* DataTables */-->
+        <link rel="stylesheet" src="/assets/DataTables/DataTables-1.10.18/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" src="/assets/DataTables/FixedColumns-3.2.5/css/fixedColumns.bootstrap.min.css">
+        <link rel="stylesheet" src="/assets/DataTables/FixedHeader-3.1.4/css/fixedHeader.bootstrap.min.css">
+
+        <link rel="stylesheet" href="/css/index.css">
+
+        <!--/* HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries */-->
+        <!--/* WARNING: Respond.js doesn't work if you view the page via file:// */-->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!--/* Material Icons */-->
+        <link rel="stylesheet" href="/assets/material-icons/material-icons.css">
+
+        <!--/* Font Awesome */-->
+        <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
+        <!--/* Ionicons */-->
+        <link rel="stylesheet" href="/assets/Ionicons/css/ionicons.min.css">
+
+        <!--/* Google Font */-->
+        <link rel="stylesheet" href="/assets/google-fonts/fonts/fonts.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-autocomplete/1.0.7/jquery.auto-complete.css" integrity="sha256-bX+rnnNrWmSrL9BjREvIc3tU9uClWcKmoEFJ2VKnUBc=" crossorigin="anonymous" />
+    </head>
+</th:block>

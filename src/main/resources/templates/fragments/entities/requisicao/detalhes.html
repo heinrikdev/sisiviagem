@@ -1,0 +1,331 @@
+<th:block th:fragment="detalhes">
+    <th:block th:include="fragments/main :: page">
+        <th:block th:fragment="content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel shadow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h3 th:if="${!requisicao.isSubmetida() && !requisicao.isDevolvida()}" class="text-danger text-center">
+                                        <b>Data de submissão: </b>
+                                        <b th:text="${'Ainda não foi submetida  :('}"></b>
+                                    </h3>
+
+                                    <h3 th:if="${(requisicao.dataSubmissao != null && requisicao.isSubmetida())}" class="text-success text-center">
+                                        <b>Data de submissão: </b>
+                                        <b th:text="${{requisicao.dataSubmissao}}"></b>
+                                    </h3>
+
+                                    <p class="text-justify">
+                                        <b>Lançado no SCDP em: </b>
+
+                                        <th:block th:if="${requisicao.foiLancadoNoSCDP()}">
+                                            <span th:text="${{requisicao.infoScdp.inseridoEm}}"></span>
+                                        </th:block>
+
+                                        <th:block th:if="${!requisicao.foiLancadoNoSCDP()}">
+                                            <span> ---</span>
+                                        </th:block>
+
+                                        <th:block th:if="${requisicao.foiLancadoNoSCDP()}">
+                                            <b>N° SCDP: </b>
+                                            <span th:text="${requisicao.infoScdp.numeroScdp}"></span>
+                                        </th:block>
+                                    </p>
+
+                                    <p class="text-justify" style="white-space: pre-line;">
+                                        <b>Descrição: </b>
+                                        <span th:text="${requisicao.justificativa}"></span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-4" sec:authorize="hasAuthority('USER')" th:if="${currentRole.name() == 'USER'}">
+                                    <a target="_blank" style="cursor: pointer;" th:href="@{/dashboard/proposto/formulario_diaria_transporte/} + ${requisicao.id}">
+                                        <label class="label label-success" style="cursor: pointer;">
+                                            <b>Gerar Formulário de Diárias e Transporte</b>
+                                        </label>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="row" sec:authorize="hasAuthority('DIARIA') || hasAuthority('AUDITOR') || hasAuthority('PASSAGEM')" th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'AUDITOR' || currentRole.name() == 'PASSAGEM'}">
+                                <div class="col-lg-12">
+                                    <button class="btn btn-info btn-flat" style="cursor: pointer;" data-toggle="modal"
+                                        data-target="#modal_gerar_justificativa_unidades">
+                                        <b>Gerar Justificativa</b>
+                                    </button>
+
+                                    <th:block sec:authorize="hasAuthority('AUDITOR')" th:if="${currentRole.name() == 'AUDITOR'}">
+                                        <button class="btn btn-info btn-flat" style="cursor: pointer;" data-toggle="modal"
+                                            data-target="#modal_inserir_dados_scdp">
+                                            <b>Inserir Dados do SCDP</b>
+                                        </button>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row" style="margin-bottom:15px">
+                                <div class="col-lg-12">
+                                    <ul class="nav nav-tabs">
+
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#solicitante">
+                                                Informações da Requisição
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#solicitacao">
+                                                Solicitações
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#mensagem">
+                                                Mensagens
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#documentos">
+                                                Anexos/Documentos
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#passageiros" th:text="'Passageiros - ' + ${requisicaoPassageiros.size()}"></a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#prestacao-contas" sec:authorize="hasAuthority('DIARIA')|| hasAuthority('AUDITOR') || hasAuthority('USER')" th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'AUDITOR' || currentRole.name() == 'USER'}">  
+                                                Prestação de Contas
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#trechos">
+                                                Trechos
+                                            </a>
+                                        </li>
+
+                                        <li sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                                            <a data-toggle="tab" href="#viagens_table">
+                                                Viagens
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="tab-content">
+
+                                <div id="solicitante" class="tab-pane active">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <b>Solicitante: </b> <span th:text="${requisicao.proposto.nome}"></span>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <b>Email: </b> <span th:text="${requisicao.proposto.email}"></span>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <b>CPF: </b> <span th:text="${requisicao.proposto.cpf}"></span>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <b>SIAPE: </b> <span th:text="${requisicao.proposto.siap}"></span>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <b>Contato: </b> <span th:text="${requisicao.proposto.getContato()}"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <ul class="list-group">
+                                                <li class="list-group-item">
+                                                    <b>Titulo: </b> <span th:text="${requisicao.titulo}"></span>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <b>Unidade/Departemaneto: </b> <span th:text="${requisicao.unidade.nome}"></span>
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <b>Quantidade de solicitações: </b> <span th:text="${requisicao.quantidadeSolicitacoes}"></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="solicitacao" class="tab-pane">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <!-- TABLE SOLICITACOES -->
+                                            <th:block th:include="fragments/entities/requisicao/listar_solicitacoes :: listar_solicitacoes"></th:block>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="mensagem" class="tab-pane">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <th:block th:include="fragments/mensagens/solicitacao/main_mensagem :: main_mensagem"></th:block>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="documentos" class="tab-pane">
+                                    <!-- TABLE ANEXO -->
+                                    <th:block th:include="fragments/entities/requisicao/listar_anexos :: listar_anexos"></th:block>
+                                </div>
+
+                                <div id="passageiros" class="tab-pane">
+
+                                    <th:block sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                                        <div class="row" style="margin-top: 5px">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <button class="btn btn-default btn-flat" data-toggle="modal"
+                                                        data-target="#modal_adicionar_passageiro">
+                                                        Adicionar
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th:block>
+
+                                    <!-- TABLE PASSAGEIROS-->
+                                    <th:block th:include="fragments/entities/requisicao/listar_requisicao_passageiros :: listar_requisicao_passageiros"></th:block>
+                                </div>
+
+                                <div id="prestacao-contas" class="tab-pane" sec:authorize="hasAuthority('DIARIA') || hasAuthority('AUDITOR') || hasAuthority('USER')" th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'AUDITOR' || currentRole.name() == 'USER'}">
+                                    <!-- TABLE PRESTAÇÃO DE CONTAS-->
+                                    <th:block th:include="fragments/entities/requisicao/listar_prestacao_contas :: listar_prestacao_contas"></th:block>
+                                </div>
+
+                                <div id="trechos" class="tab-pane">
+                                    <!-- TABLE TRECHO-->
+                                    <th:block th:include="fragments/entities/requisicao/listar_trechos :: listar_trechos"></th:block>
+                                </div>
+
+                                <div id="viagens_table" class="tab-pane" sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                                    <!-- TABLE VIAGEM-->
+                                    <th:block th:include="fragments/entities/requisicao/listar_viagem :: listar_viagem"></th:block>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <th:block sec:authorize="hasAuthority('USER')" th:if="${currentRole.name() == 'USER'}">
+                                    <div class="col-lg-12 text-right">
+                                        <div class="btn-group">
+                                            <a th:if="${requisicao.hasTransporteRecusado()}" th:href="@{/dashboard/proposto/requisicoes/reenviar_sem_trasnporte/} + ${requisicao.id}"
+                                                class="btn bg-primary btn-flat">
+                                                Reenviar sem transporte
+                                            </a>
+
+                                            <a th:if="${requisicao.isEditavel()}" th:href="@{/dashboard/proposto/requisicoes/editar/} + ${requisicao.id}"
+                                                class="btn bg-purple btn-flat">
+                                                Editar
+                                            </a>
+
+                                            <a th:href="@{/dashboard/proposto/requisicoes/submeter/} + ${requisicao.id}"
+                                                class="btn btn-success btn-flat" th:if="${!requisicao.isSubmetida()}">
+                                                Submeter
+                                            </a>
+                                        </div>
+                                    </div>
+                                </th:block>
+
+                                <th:block sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                                    <div class="col-lg-12 text-right">
+                                        <div class="btn-group">
+                                            <div class="btn-group">
+                                                <a th:href="@{/dashboard/requisicoes/avaliar/} + ${requisicao.id} + '/aprovar'"
+                                                    class="btn btn-success btn-flat" title="Ao adicionar uma viagem estará aprovando a solicitação de transporte">
+                                                    <i class="fa fa-plus"></i>
+                                                    Adicionar viagem
+                                                </a>
+    
+                                                <a th:if="${requisicao.isTransporteSubmetido() && !viagens.isEmpty()}" th:href="@{/dashboard/requisicoes/avaliar/} + ${requisicao.id} + '/aprovar_sem_alterar'" class="btn bg-purple btn-flat">
+                                                    Aprovar sem alterar
+                                                </a> 
+
+                                                <a th:if="${requisicao.isTransporteSubmetido() || viagens.isEmpty()}" th:href="@{/dashboard/requisicoes/avaliar/} + ${requisicao.id} + '/recusar'"
+                                                    class="btn btn-danger btn-flat">
+                                                    Recusar
+                                                </a>
+
+                                                <a th:href="@{/dashboard/transporte/requisicoes/habilitarOuDesabilitarModoEdicao/} + ${requisicao.id}"
+                                                    class="btn btn-primary btn-flat" th:text="${requisicao.modoEdicaoHabilitado} ? 'Desabilitar Edição' : 'Habilitar Edição'">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <th:block sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                <th:block th:include="fragments/entities/requisicao/modal_adicionar_passageiro :: modal_adicionar_passageiro"></th:block>
+            </th:block>
+
+            <th:block sec:authorize="hasAuthority('DIARIA') || hasAuthority('AUDITOR') || hasAuthority('PASSAGEM')" th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'AUDITOR' || currentRole.name() == 'PASSAGEM'}">
+                <th:block th:include="fragments/entities/requisicao/modal_gerar_justificativa_unidades :: modal_gerar_justificativa_unidades"></th:block>
+            </th:block>
+
+            <th:block sec:authorize="hasAuthority('AUDITOR')" th:if="${currentRole.name() == 'AUDITOR'}">
+                <th:block th:include="fragments/entities/requisicao/modal_inserir_dados_scdp :: modal_inserir_dados_scdp"></th:block>
+            </th:block>
+        </th:block>
+
+        <th:block th:fragment="scriptjs">
+
+            <script>
+                $(document).ready(() => {
+
+                    const tables = $('table');
+
+                    for (var i = 0; i < tables.length; i++) {
+                        $(tables[i]).DataTable({
+                            info: true,
+                            ordering: true,
+                        });
+                    }
+                });
+            </script>
+
+            <th:block sec:authorize="hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE'}">
+                <script src="/js/transporte_view_requisicao.js"></script>
+                <script src="/js/novaRequisicaoInsercaoPassageiroModal.js"></script>
+            </th:block>
+
+            <script sec:authorize="hasAuthority('DIARIA') || hasAuthority('AUDITOR') || hasAuthority('PASSAGEM')" 
+            th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'AUDITOR' || currentRole.name() == 'PASSAGEM'}"
+            src="/js/modal_gerar_justificativa_unidades.js"></script>
+            <script sec:authorize="hasAuthority('AUDITOR')" 
+            th:if="${currentRole.name() == 'AUDITOR'}"
+            src="/js/requisicao_detalhes_info_scdp.js"></script>
+            <script src="/js/mensagem_requisicao.js"></script>
+        </th:block>
+    </th:block>
+</th:block>

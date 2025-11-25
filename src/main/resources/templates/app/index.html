@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="pt-br">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--/* Tell the browser to be responsive to screen width */-->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <title>Sistema de solicitação de viagem</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+    <!--/* Bootstrap 3.3.7 */-->
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <!--/* Font Awesome */-->
+    <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
+    <!--/* Ionicons */-->
+    <link rel="stylesheet" href="/assets/Ionicons/css/ionicons.min.css">
+    <!--/* Theme style */-->
+    <link rel="stylesheet" href="/assets/adminlte/css/AdminLTE.min.css">
+
+    <!--/* HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries */-->
+    <!--/* WARNING: Respond.js doesn't work if you view the page via file:// */-->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    <!--/* Google Font */-->
+    <link rel="stylesheet" href="/assets/google-fonts/fonts/fonts.css">
+    <link href="/css/login.css" rel="stylesheet">
+</head>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+
+        <div class="login-logo">
+            <p>
+                <img src=https://files.cercomp.ufg.br/weby/up/393/o/PNG_HORIZONTAL_COM_DESCRITOR.png alt="" width="300" height="180">
+
+            </p>
+        </div>
+
+        <div class="login-box-body">
+            <div class="login-logo text-center">
+                <h1 style="text-align: center">
+                    <em class="fa fa-car"></em>
+                    <b>Sis</b>Viagem
+                </h1>
+                <!--/* <h3>Solicitação de Viagens</h3> */-->
+                <hr style="margin-top: 0px; margin-bottom: 0px;" />
+            </div>
+
+            <p class="text-center" style="padding-top: .5rem; margin-bottom: 1.5rem">
+                Sistema de Solicitação de Viagens<br />(transporte, diárias e passagens)
+            </p>
+
+            <p class="text-center" th:if="${error}">
+                <span style="color: red">Senha ou Usuário inválido</span>
+            </p>
+
+            <p class="text-center" th:if="${errorRecaptcha}">
+                <span style="color: red">Por favor, clique em eu não sou um robô</span>
+            </p>
+
+            <form class="form-signin" id="loginForm" th:action="@{/}" th:object="${user}" method="POST">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group has-feedback">
+                            <input type="text" autocomplete="off" id="loginUnico" name="loginUnico"
+                                placeholder="Login único" required="true" class="form-control" autofocus="true">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group has-feedback">
+                            <input type="password" autocomplete="off" id="password" name="password" placeholder="Senha"
+                                required="true" class="form-control">
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-theme="light"
+                                data-sitekey="6LcajJ8rAAAAAEiWIRzhMzXE545T778s6WgIvmBy"
+                                data-callback="recaptchaDataCallback"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" id="btnLogar">Login</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <p class="text-center" style="margin: 15px 0 15px;">
+                            <a target="_blank" href="https://fabricasw.jatai.ufg.br/up/1020/o/Manual_Uso_SisViagem.pdf">
+                                Baixar tutorial
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--/* Loarder Modal*/-->
+    <div class="modal fade" id="loaderModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--/* jQuery 3 */-->
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <!--/* Bootstrap 3.3.7 */-->
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!--/* Recaptcha*/-->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="/js/login.js"> </script>
+</body>
+
+</html>

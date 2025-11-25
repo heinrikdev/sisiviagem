@@ -1,0 +1,47 @@
+<th:block th:fragment="main_mensagem">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <div class="btn-group text-center">
+
+                    <th:block sec:authorize="hasAuthority('USER') || hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE' || currentRole.name() == 'USER'}">
+                        <button id="0" class="mensagem_requisicao_btn btn btn-default" type="button" th:if="${requisicao.hasTransporte()}">
+                            Transporte
+                            <span class="badge" th:text="${requisicao.getQuantidadeMensagensTransporte()}"></span>
+                        </button>
+                    </th:block>
+
+                    <th:block sec:authorize="hasAuthority('USER') || hasAuthority('DIARIA') || hasAuthority('AUDITOR')" th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'AUDITOR' || currentRole.name() == 'USER'}">
+                        <button id="1" class="mensagem_requisicao_btn btn btn-default" type="button" th:if="${requisicao.hasDiaria()}">
+                            Diária
+                            <span class="badge" th:text="${requisicao.getQuantidadeMensagensDiaria()}"></span>
+                        </button>
+
+                        <button id="2" class="mensagem_requisicao_btn btn btn-default" type="button" th:if="${requisicao.hasPassagem()}">
+                            Passagem
+                            <span class="badge" th:text="${requisicao.getQuantidadeMensagensPassagem()}"></span>
+                        </button>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <th:block sec:authorize="hasAuthority('USER') || hasAuthority('TRANSPORTE')" th:if="${currentRole.name() == 'TRANSPORTE' || currentRole.name() == 'USER'}">
+            <div id="transporte_msg" class="col-lg-8 col-lg-offset-2 view_chat hide" th:if="${requisicao.hasTransporte()}">
+                <th:block th:include="fragments/mensagens/solicitacao/mensagem_transporte :: mensagem_transporte"></th:block>
+            </div>
+        </th:block>
+
+        <th:block sec:authorize="hasAuthority('USER') || hasAuthority('DIARIA') || hasAuthority('AUDITOR')" th:if="${currentRole.name() == 'DIARIA' || currentRole.name() == 'AUDITOR' || currentRole.name() == 'USER'}">
+            <div id="diaria_msg" class="col-lg-8 col-lg-offset-2 view_chat hide" th:if="${requisicao.hasDiaria()}">
+                <th:block th:include="fragments/mensagens/solicitacao/mensagem_diaria :: mensagem_diaria"></th:block>
+            </div>
+
+            <div id="passagem_msg" class="col-lg-8 col-lg-offset-2 view_chat hide" th:if="${requisicao.hasPassagem()}">
+                <th:block th:include="fragments/mensagens/solicitacao/mensagem_passagem :: mensagem_passagem"></th:block>
+            </div>
+        </th:block>
+    </div>
+</th:block>

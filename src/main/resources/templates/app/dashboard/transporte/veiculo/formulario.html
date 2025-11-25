@@ -1,0 +1,135 @@
+<th:block th:include="fragments/main :: page">
+    <th:block th:fragment="content">
+        <div class="panel shadow">
+            <form th:action="@{/dashboard/transporte/veiculo}" method="POST">
+                <div class="panel-body">
+                    <div class="row">
+                        <input type="hidden" name="id" th:value="${veiculo.id}">
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Carro:</label>
+                                <input class="form-control"  type="text" placeholder="Ex.: KOMBI" name="carro" th:value="${veiculo.carro}" required/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Placa:</label>
+                                <input class="form-control"  placeholder="Ex.: MMM-1000" type="text" name="placa" th:value="${veiculo.placa}" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Combustível:</label>
+                                <select class="form-control" name="combustivel" th:value="${veiculo.combustivel}">
+                                    <option value="DIESEL"> Diesel</option>
+                                    <option value="FLEX">Flex</option>
+                                    <option value="GASOLINA">Gasolina</option>
+                                    <option value="ALCOOL">Alcool</option>
+                                    <option value="HIDROGENIO">Hidrogênio</option>
+                                    <option value="ELETRICO">Elétrico</option>
+                                    <option value="SOLAR">SOLAR</option>
+                                    <option value="FUSAO/FISSAO">Fusão/Fissão Nuclear</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Marca:</label>
+                                <input class="form-control"  placeholder="Ex.: MERCEDES" type="text" name="marca" th:value="${veiculo.marca}" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Modelo:</label>
+                                <input class="form-control"  placeholder="Ex.: DOBLO" type="text" name="modelo" th:value="${veiculo.modelo}" required/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Ano:</label>
+                                <input class="form-control"  placeholder="Ex.: 1987" type="text" name="ano" th:value="${veiculo.ano}" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Chassis:</label>
+                                <input class="form-control"  placeholder="Ex.: 9A6KE125095002450" type="text" name="chassis" th:value="${veiculo.chassis}" required/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Renavan:</label>
+                                <input class="form-control"  placeholder="Ex.: 652186054" type="text" name="renavan" th:value="${veiculo.renavan}" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Ar condicionado:</label>
+                                <select class="form-control" name="arCondicionado" th:value="${veiculo.arCondicionado}" required>
+                                    <option value="1">SIM</option>
+                                    <option value="0">NÂO</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Direção Hidraulica:</label>
+                                <select class="form-control" name="direcaoHidraulica" th:value="${veiculo.direcaoHidraulica}" required>
+                                    <option value="1">SIM</option>
+                                    <option value="0">NÂO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Pneus:</label>
+                                <input class="form-control"  placeholder="Ex.: 175/70/14" type="text" name="pneus" th:value="${veiculo.pneus}" required/>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Capacidade:</label>
+                                <input class="form-control"  placeholder="Ex.: 4" type="number" name="capacidade" th:value="${veiculo.capacidade}" required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <button type="submit" role="submit" class="btn btn-primary btn-block btn-flat">
+                                    <b>Salvar</b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </th:block>
+</th:block>

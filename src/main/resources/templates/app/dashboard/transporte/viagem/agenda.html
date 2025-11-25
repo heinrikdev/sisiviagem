@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="pt-br">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--/*  Tell the browser to be responsive to screen width  */-->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!--/* CSRF Header e Token usados nas requisições Ajax */-->
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title>Sistema de solicitação de viagem</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+    <!--/*  Bootstrap 3.3.7  */-->
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/assets/fullcalendar/fullcalendar.min.css">
+
+    <link rel="stylesheet" href="/css/agenda.css">
+
+    <link rel="stylesheet" href="/assets/font-awesome/css/font-awesome.min.css">
+    <!--/* Google Font */-->
+    <link rel="stylesheet" href="/assets/google-fonts/fonts/fonts.css">
+</head>
+
+<body class="container-fluid">
+    <div class="row" style="margin: 25px">
+        <div class="col-lg-12">
+            <h1 class="text-center" style="border-bottom: 1px solid; padding-bottom: .5rem;">Agenda do Transporte</h1>
+
+            <p>
+                LEGENDA: <br>
+                <span class="label ENCERRADO">Encerrado</span>
+                <span class="label FINALIZADO">Finalizado</span>
+                <span class="label ABERTO">Aberto</span>
+                <span class="label EM_ANDAMENTO">Em andamento</span>
+            </p>
+
+
+            <div id='calendar'></div>
+        </div>
+    </div>
+
+    <!--/*  Modal  */-->
+    <div id="eventDetalhesModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!--/*  Modal content */-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center" id="titulo"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Data de Partida:</b>
+                                    <p class="text-justify" id="partida" style="white-space: pre-line;"></p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Data de Chegada:</b>
+                                    <p class="text-justify" id="chegada" style="white-space: pre-line;"> </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Motorista:</b>
+                                    <p class="text-justify" style="white-space: pre-line;" id="motorista"></p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Veículo:</b>
+                                    <p class="text-justify" style="white-space: pre-line;" id="veiculo"></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <b>Descrição:</b>
+                                    <p class="text-justify" style="white-space: pre-line;" id="descricao"></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="eventDetalhes">Detalhes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--/*  Loarder Modal */-->
+    <div class="modal fade" id="loaderModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/jquery/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/fullcalendar/moment.js"></script>
+    <script src="/assets/fullcalendar/fullcalendar.js"></script>
+    <script src="/assets/fullcalendar/locale/pt-br.js"></script>
+    <script src="/js/calendar.js"></script>
+</body>
+
+</html>

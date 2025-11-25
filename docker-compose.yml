@@ -1,0 +1,32 @@
+services:
+  sisviagem_app:
+    build: .
+    container_name: sisviagem-app
+    restart: always
+    environment:
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_PORT: ${EMAIL_PORT}
+      EMAIL_USERNAME: ${EMAIL_USERNAME}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      DB_URL: ${DB_URL}
+      LDAP_HOST: ${LDAP_HOST}
+      LDAP_USER: ${LDAP_USER}
+      LDAP_PASSWORD: ${LDAP_PASSWORD}
+      LDAP_SUFFIXBASE: ${LDAP_SUFFIXBASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      APP_HOST: ${APP_HOST}
+      DLOG_EMAIL: ${DLOG_EMAIL}
+      TZ: America/Sao_Paulo
+      VIRTUAL_HOST: sisviagem.app.ufj.edu.br
+      LETSENCRYPT_HOST: sisviagem.app.ufj.edu.br
+      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 8080
+    volumes:
+      - ./upload:/upload
+    networks:
+      - reverse-proxy
+
+networks:
+  reverse-proxy:
+    external: true
