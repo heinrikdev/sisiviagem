@@ -86,7 +86,7 @@ jobs:
           WEB_URL: ${{ secrets.WEB_URL }}
 
         run: |
-          docker run -d --restart unless-stopped -p 8081:80 \
+          docker --config /home/dev/.docker-heinrikdev run -d --restart unless-stopped -p 8089:80 \
           -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
           -e DB_URL="${{ secrets.DB_URL }}" \
           -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
